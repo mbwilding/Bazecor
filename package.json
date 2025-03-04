@@ -78,6 +78,7 @@
     "@semantic-release/npm": "^12.0.1",
     "@semantic-release/release-notes-generator": "^11.0.3",
     "@serialport/bindings-cpp": "^12.0.1",
+    "@tauri-apps/cli": "^2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
@@ -88,6 +89,7 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^2.1.9",
     "@xpd/tailwind-3dtransforms": "^1.0.3",
     "assertron": "^11.5.0",
@@ -127,9 +129,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.4.12",
     "vitest": "^2.1.9",
-    "webpack-cli": "^5.1.4",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@tauri-apps/cli": "^2"
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
@@ -154,6 +154,9 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@serialport/parser-delimiter": "^12.0.0",
     "@serialport/stream": "12.0.0",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-log": "^2",
+    "@tauri-apps/plugin-opener": "^2",
     "@types/react-color": "^3.0.11",
     "@types/w3c-web-hid": "^1.0.3",
     "@xstate/react": "^4.1.1",
@@ -195,9 +198,7 @@
     "update-electron-app": "^3.0.0",
     "usb": "^2.13.0",
     "xstate": "^5.13.0",
-    "zod": "^3.23.8",
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2"
+    "zod": "^3.23.8"
   },
   "build": {
     "appId": "com.dygmalab.bazecor",
