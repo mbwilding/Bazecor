@@ -104,3 +104,7 @@ dist
 /playwright-report/
 /playwright/.cache/
 .vscode/settings.json
+
+# Rust
+**/target/
+**/gen/schemas

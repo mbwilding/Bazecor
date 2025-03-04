@@ -29,7 +29,11 @@
     "tc": "vitest --coverage",
     "test": "vitest",
     "test:type": "tsc && tsc -p tsconfig.strict.json",
-    "e2e": "yarn playwright test"
+    "e2e": "yarn playwright test",
+    "tauri": "tauri",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "dygma",
@@ -44,7 +48,7 @@
   },
   "homepage": "https://github.com/Dygmalab/Bazecor",
   "engines": {
-    "node": "^20",
+    "node": "^23",
     "npm": ">=10.0.0"
   },
   "devDependencies": {
@@ -123,7 +127,9 @@
     "typescript": "^5.4.5",
     "vite": "^5.4.12",
     "vitest": "^2.1.9",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@tauri-apps/cli": "^2"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
@@ -189,7 +195,9 @@
     "update-electron-app": "^3.0.0",
     "usb": "^2.13.0",
     "xstate": "^5.13.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2"
   },
   "build": {
     "appId": "com.dygmalab.bazecor",
