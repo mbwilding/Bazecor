@@ -35,7 +35,7 @@ function forwardConsole(fnName: "log" | "debug" | "info" | "warn" | "error", rus
         rust(message);
     };
 }
-forwardConsole("log", trace);
+forwardConsole("log", info); // trace
 forwardConsole("debug", debug);
 forwardConsole("info", info);
 forwardConsole("warn", warn);
@@ -46,6 +46,8 @@ const root = createRoot(container);
 try {
   root.render(
     <ErrorBoundary>
+      <div>Test</div>
+    {false && (
       <MemoryRouter>
         <DeviceProvider>
           <App />
@@ -61,6 +63,7 @@ try {
           />
         </DeviceProvider>
       </MemoryRouter>
+    )}
     </ErrorBoundary>,
   );
 } catch (e) {
