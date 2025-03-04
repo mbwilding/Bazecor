@@ -4,7 +4,7 @@ members = ["src-tauri"]
 
 [workspace.package]
 version = "0.1.0"
-description = "Configurator for Dygma keyboards"
+description = "Graphical configurator for Dygma Products"
 authors = ["Matthew Wilding <mbwilding@gmail.com"]
 edition = "2021"
 

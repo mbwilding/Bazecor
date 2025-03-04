@@ -21,9 +21,9 @@ import Styled from "styled-components";
 import { IconArrowsMouseMovement, IconArrowsMouseWheel } from "@Renderer/components/atoms/icons";
 
 const Styles = Styled.div`
-width: 55px; 
+width: 55px;
 height: 35px;
-border-radius: 35px;  
+border-radius: 35px;
 line-height: 34px;
 text-align: center;
 color: ${({ theme }) => theme.styles.button.buttonMouse.color};
