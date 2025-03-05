@@ -54,9 +54,47 @@ import DeviceManager from "./views/DeviceManager";
 import Device from "../api/comms/Device";
 import { HIDNotifdevice } from "./types/hid";
 import HID from "../api/hid/hid";
-import { locale as Locale } from "@tauri-apps/plugin-os";
+import { locale } from "@tauri-apps/plugin-os";
+import { homeDir } from "@tauri-apps/api/path";
 
 const store = Store.getStore();
+
+
+// store.set("settings.backupFolder", json!(""));
+// store.set("settings.backupFrequency", json!(0));
+// store.set("settings.language", json!("english"));
+// store.set("settings.darkMode", json!("dark")); // TODO: system
+// store.set("settings.hideBluetoothExperimental", json!(false));
+// store.set("settings.showDefaults", json!(false));
+// store.set("settings.autoUpdate", json!(null));
+// store.set("settings.verbose", json!(false));
+// store.set("settings.version", json!(null));
+
+interface TauriSettings {
+  backupFolder: string;
+  backupFrequency: number;
+  language: string;
+  darkMode: string;
+  hideBluetoothExperimental: boolean;
+  showDefaults: boolean;
+  autoUpdate?: boolean;
+  verbose: boolean;
+  version?: string;
+}
+
+let oldSettingsInit: TauriSettings = await (async () => {
+  return {
+    backupFolder: await store.get<string>("backupFolder"),
+    backupFrequency: await store.get<number>("backupFrequency"),
+    language: await store.get<string>("language"),
+    darkMode: await store.get<string>("darkMode"),
+    hideBluetoothExperimental: await store.get<boolean>("hideBluetoothExperimental"),
+    showDefaults: await store.get<boolean>("showDefaults"),
+    autoUpdate: await store.get<boolean>("autoUpdate"),
+    verbose: await store.get<boolean>("verbose"),
+    version: await store.get<string>("version"),
+  };
+})();
 
 function App() {
   const [pages, setPages] = useState({});
@@ -71,7 +109,8 @@ function App() {
   const [fwUpdate, setFwUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notifyNewVersion, setNotifyNewVersion] = useState(false);
-  const [oldSettings] = useState(store.get("settings"));
+  // TODO: Not sure if this will return that structure
+  const [oldSettings] = useState(oldSettingsInit);
 
   const saveButtonRef = useRef(null);
   const discardChangesButtonRef = useRef(null);
@@ -84,7 +123,6 @@ function App() {
   const updateStorageSchema = async () => {
     // Update stored settings schema
     log.log("Retrieving settings: ", oldSettings);
-    const locale = await Locale();
     if (await store.get<string>("settings.language") !== undefined) {
       i18n.setLanguage(await store.get<string>("settings.language"));
     }
@@ -113,16 +151,16 @@ function App() {
 
     // Store all settings from electron settings in electron store.
     const data = {} as any;
-    const userPath = await ipcRenderer.invoke("get-userPath", "home");
+    const userPath = await homeDir();
     data.backupFolder = path.join(userPath, "Dygma", "Backups");
     data.backupFrequency = 30;
-    data.language = getTranslator(locale);
+    data.language = getTranslator(await locale());
     data.darkMode = "system";
     data.showDefaults = false;
     i18n.setLanguage(data.language);
     store.set("settings", data);
     store.set("neurons", []);
-    log.log("Testing results: ", data, store.get("settings"), store.get("settings.darkMode"));
+    log.log("Testing results: ", data, await store.get("settings"), await store.get<string>("settings.darkMode"));
   };
 
   useEffect(() => {
@@ -135,7 +173,7 @@ function App() {
       const mode = await store.get<string>("settings.darkMode");
       isDark = mode === "dark";
       if (mode === "system") {
-        isDark = await ipcRenderer.invoke("get-NativeTheme");
+        isDark = true // TODO: await ipcRenderer.invoke("get-NativeTheme");
         if (isDark) {
           document.documentElement.classList.remove("light");
           document.documentElement.classList.add("dark");
@@ -147,7 +185,7 @@ function App() {
       // Settings entry creation for the beta toggle, it will have a control in preferences to change the policy
       let getAllowBeta: boolean;
       if (store.has("settings.allowBeta")) {
-        getAllowBeta = store.get("settings.allowBeta") as boolean;
+        getAllowBeta = await store.get<boolean>("settings.allowBeta");
       } else {
         getAllowBeta = true;
         store.set("settings.allowBeta", true);
@@ -155,7 +193,7 @@ function App() {
 
       let getAutoUpdate: boolean;
       if (store.has("settings.autoUpdate")) {
-        getAutoUpdate = store.get("settings.autoUpdate") as boolean;
+        getAutoUpdate = await store.get<boolean>("settings.autoUpdate");
       }
 
       setDarkMode(isDark);
@@ -218,10 +256,10 @@ function App() {
     document.documentElement.classList.remove("light");
     document.documentElement.classList.remove("dark");
     document.documentElement.classList.remove("system");
-    log.log("Dark mode changed to: ", mode, "NativeTheme says: ", ipcRenderer.invoke("get-NativeTheme"));
+    log.log("Dark mode changed to: ", mode, "NativeTheme says: ", true); // TODO: ipcRenderer.invoke("get-NativeTheme"));
     let isDark = mode === "dark";
     if (mode === "system") {
-      isDark = await ipcRenderer.invoke("get-NativeTheme");
+      isDark = true // TODO: await ipcRenderer.invoke("get-NativeTheme");
       if (isDark) {
         document.documentElement.classList.remove("light");
         document.documentElement.classList.add("dark");
@@ -333,9 +371,9 @@ function App() {
       );
     };
 
-    const darkThemeListener = (event: any, message: boolean) => {
+    const darkThemeListener = async (event: any, message: boolean) => {
       log.log("O.S. DarkTheme Settings changed to ", message, event);
-      const dm = store.get("settings.darkMode");
+      const dm = await store.get<string>("settings.darkMode");
       if (dm === "system") {
         toggleDarkMode(dm);
       }
@@ -378,10 +416,10 @@ function App() {
     setAllowBeta(newValue);
   };
 
-  const updateAutoUpdate = (checked: boolean) => {
+  const updateAutoUpdate = async (checked: boolean) => {
     log.info("auto update value changed to:", checked);
     if (checked === undefined) {
-      setAutoUpdate(store.get("settings.autoUpdate"));
+      setAutoUpdate(await store.get<boolean>("settings.autoUpdate"));
     } else {
       store.set("settings.autoUpdate", checked);
       setAutoUpdate(checked);
