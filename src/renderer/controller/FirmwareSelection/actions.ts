@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/core";
 import axios from "axios";
 import SemVer from "semver";
-import log from "electron-log/renderer";
+const log = console;
 import path from "path";
 import fs from "fs";
 

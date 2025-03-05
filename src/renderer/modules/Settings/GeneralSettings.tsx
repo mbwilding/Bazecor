@@ -17,7 +17,7 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
-import log from "electron-log/renderer";
+const log = console;
 
 // Types
 import { LayerType, Neuron } from "@Renderer/types/neurons";

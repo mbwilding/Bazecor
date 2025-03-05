@@ -1,5 +1,5 @@
 import { setup, assign, fromPromise } from "xstate";
-import log from "electron-log/renderer";
+const log = console;
 
 import * as Actions from "./actions";
 import * as Context from "./context";

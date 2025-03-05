@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import log from "electron-log/renderer";
+const log = console;
 import { DeviceTools } from "@Renderer/DeviceContext";
 import { findDevice } from "./findDevice";
 import { DefyWired, DefyWiredBootloader } from "../hardware-dygma-defy-wired";

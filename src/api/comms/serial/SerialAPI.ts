@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-eval */
-import log from "electron-log/renderer";
+const log = console;
 import type { SerialPort as SP } from "serialport";
 import type { PortInfo } from "@serialport/bindings-cpp";
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";

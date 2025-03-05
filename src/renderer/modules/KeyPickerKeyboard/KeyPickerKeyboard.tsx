@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Styled from "styled-components";
 import { motion } from "framer-motion";
-import log from "electron-log/renderer";
+const log = console;
 
 // Internal components
 import {

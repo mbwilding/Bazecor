@@ -17,7 +17,7 @@
 
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import log from "electron-log/renderer";
+const log = console;
 import { useMachine } from "@xstate/react";
 import { i18n } from "@Renderer/i18n";
 import { useDevice } from "@Renderer/DeviceContext";

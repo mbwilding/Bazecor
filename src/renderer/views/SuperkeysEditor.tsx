@@ -19,7 +19,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
-import log from "electron-log/renderer";
+const log = console;
 
 // Styling and elements
 import Heading from "@Renderer/components/atoms/Heading";

@@ -16,7 +16,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import log from "electron-log/renderer";
+const log = console;
 import { num2hexstr } from "../num2hexstr";
 import { serialConnection, rawCommand, noWaitCommand } from "../serialConnection";
 import { PACKET_SIZE, TYPE_DAT, TYPE_ELA, TYPE_ESA } from "../flasherConstants";

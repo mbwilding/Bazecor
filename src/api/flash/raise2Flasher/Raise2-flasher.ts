@@ -19,7 +19,7 @@
  */
 
 import { crc32 } from "easy-crc";
-import log from "electron-log/renderer";
+const log = console;
 import { num2hexstr } from "../num2hexstr";
 import { serialConnection, rawCommand, noWaitCommand } from "../serialConnection";
 import { InfoType, SealType, HexType } from "../types";

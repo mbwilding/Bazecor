@@ -24,7 +24,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { ipcRenderer } from "electron";
 import fs from "fs";
-import log from "electron-log/renderer";
+const log = console;
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@Renderer/components/atoms/Dialog";
 import customCursor from "@Assets/base/cursorBucket.png";
 import ToastMessage from "@Renderer/components/atoms/ToastMessage";

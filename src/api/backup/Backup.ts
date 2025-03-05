@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import log from "electron-log/renderer";
+const log = console;
 import { Neuron } from "@Renderer/types/neurons";
 import { BackupType } from "@Renderer/types/backups";
 import { VirtualType } from "@Renderer/types/virtual";

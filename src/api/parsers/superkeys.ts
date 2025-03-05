@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import { SuperkeysType } from "@Renderer/types/superkeys";
 
 export const parseSuperkeysRaw = (raw: string, stored: SuperkeysType[]) => {

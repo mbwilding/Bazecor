@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import serial, { DeviceType, isSerialType } from "./serial";
 import hid from "./hid";
 

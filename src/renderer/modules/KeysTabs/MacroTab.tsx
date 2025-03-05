@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { i18n } from "@Renderer/i18n";
-import log from "electron-log/renderer";
+const log = console;
 
 import { IconArrowInBoxUp } from "@Renderer/components/atoms/icons";
 import { Button } from "@Renderer/components/atoms/Button";

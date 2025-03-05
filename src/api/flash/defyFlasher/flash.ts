@@ -17,7 +17,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import log from "electron-log/renderer";
+const log = console;
 import { DeviceClass } from "@Renderer/types/devices";
 import { DeviceTools } from "@Renderer/DeviceContext";
 import Device, { State } from "src/api/comms/Device";

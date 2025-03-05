@@ -16,7 +16,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import log from "electron-log/renderer";
+const log = console;
 
 // Custom components
 import { Card, CardContent, CardHeader, CardTitle } from "@Renderer/components/atoms/Card";

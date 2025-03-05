@@ -98,7 +98,7 @@ pub fn run() {
                     let tech = if record.target() == "bazecor_lib" { "B" } else { "F" };
                     out.finish(format_args!("[{}] {}: {}", record.level(), tech, message))
                 })
-                .level(log::LevelFilter::Debug)
+                // .level(log::LevelFilter::Debug)
                 .build(),
         )
         .plugin(tauri_plugin_opener::init())

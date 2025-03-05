@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from "react";
 import { SortableKnob } from "react-easy-sort";
-import log from "electron-log/renderer";
+const log = console;
 
 import Heading from "@Renderer/components/atoms/Heading";
 import { IconDelete, IconDragAndDrop } from "@Renderer/components/atoms/icons";

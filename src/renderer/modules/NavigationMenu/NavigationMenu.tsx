@@ -21,7 +21,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import log from "electron-log/renderer";
+const log = console;
 import { Octokit } from "@octokit/core";
 import SemVer from "semver";
 

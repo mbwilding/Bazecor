@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 import { ipcRenderer } from "electron";
 import path from "path";
-import log from "electron-log/renderer";
+const log = console;
 import { i18n } from "@Renderer/i18n";
 
 import GlobalStyles from "@Renderer/theme/GlobalStyles";

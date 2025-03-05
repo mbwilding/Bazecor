@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import { ipcRenderer } from "electron";
 import { i18n } from "@Renderer/i18n";
 

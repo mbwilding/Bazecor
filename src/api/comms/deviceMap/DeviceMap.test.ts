@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DeviceMap from "./DeviceMap";
-import log from "electron-log/renderer";
+const log = console;
 
 
 describe('DeviceMap', () => {

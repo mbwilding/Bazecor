@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import log from "electron-log/renderer";
+const log = console;
 import Neuron from "../../hardware/Neuron";
 import Key from "../../hardware/Key";
 import UnderGlowStrip from "../../hardware/UnderGlowStrip";

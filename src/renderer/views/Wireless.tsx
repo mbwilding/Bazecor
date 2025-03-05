@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 // General imports
 import React, { useState, useEffect } from "react";
-import log from "electron-log/renderer";
+const log = console;
 
 // Custom component imports
 import LogoLoader from "@Renderer/components/atoms/loader/LogoLoader";

@@ -15,7 +15,7 @@
  */
 
 import React, { useState } from "react";
-import log from "electron-log/renderer";
+const log = console;
 
 import { Card, CardContent, CardHeader, CardTitle } from "@Renderer/components/atoms/Card";
 import { Switch } from "@Renderer/components/atoms/Switch";

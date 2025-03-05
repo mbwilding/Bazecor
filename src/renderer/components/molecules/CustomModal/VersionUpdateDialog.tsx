@@ -17,7 +17,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Octokit } from "@octokit/core";
-import log from "electron-log/renderer";
+const log = console;
 import SemVer from "semver";
 import parse, { domToReact } from "html-react-parser";
 

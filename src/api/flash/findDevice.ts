@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import { DeviceTools } from "@Renderer/DeviceContext";
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import { ExtendedPort } from "../comms/serial/SerialAPI";

@@ -15,7 +15,7 @@
  */
 
 import async from "async";
-import log from "electron-log/renderer";
+const log = console;
 import Focus from "../../focus";
 import { decodeHexLine } from "../decodeHexLine";
 import { MAX_MS, PACKET_SIZE, TYPE_DAT, TYPE_ELA } from "../flasherConstants";

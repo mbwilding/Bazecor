@@ -29,13 +29,13 @@ import ErrorBoundary from "./ErrorBoundary";
 // Log pass-through to Rust
 import { warn, debug, trace, info, error } from "@tauri-apps/plugin-log";
 function forwardConsole(fnName: "log" | "debug" | "info" | "warn" | "error", rust: (message: string) => Promise<void>) {
-    const java = console[fnName];
-    console[fnName] = message => {
-        java(message);
-        rust(message);
-    };
+  const java = console[fnName];
+  console[fnName] = message => {
+    java(message);
+    rust(message);
+  };
 }
-forwardConsole("log", info); // trace
+forwardConsole("log", trace);
 forwardConsole("debug", debug);
 forwardConsole("info", info);
 forwardConsole("warn", warn);
@@ -46,26 +46,32 @@ const root = createRoot(container);
 try {
   root.render(
     <ErrorBoundary>
-      <div>Test</div>
-    {false && (
       <MemoryRouter>
         <DeviceProvider>
-          <App />
-          <ToastContainer
-            position="top-right"
-            autoClose={false}
-            hideProgressBar={false}
-            newestOnTop={false}
-            draggable={false}
-            closeOnClick
-            pauseOnHover
-            pauseOnFocusLoss
-          />
+          <div>TEST</div>
         </DeviceProvider>
       </MemoryRouter>
-    )}
-    </ErrorBoundary>,
+    </ErrorBoundary>
   );
+  // root.render(
+  //   <ErrorBoundary>
+  //     <MemoryRouter>
+  //       <DeviceProvider>
+  //         <App />
+  //         <ToastContainer
+  //           position="top-right"
+  //           autoClose={false}
+  //           hideProgressBar={false}
+  //           newestOnTop={false}
+  //           draggable={false}
+  //           closeOnClick
+  //           pauseOnHover
+  //           pauseOnFocusLoss
+  //         />
+  //       </DeviceProvider>
+  //     </MemoryRouter>
+  //   </ErrorBoundary>,
+  // );
 } catch (e) {
   root.render(<Error error={e} />);
 }

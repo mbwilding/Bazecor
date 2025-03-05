@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import fs from "fs";
 import path from "path";
-import log from "electron-log/renderer";
+const log = console;
 import { ipcRenderer } from "electron";
 import { SerialPort } from "serialport";
 import { DeviceTools } from "@Renderer/DeviceContext";

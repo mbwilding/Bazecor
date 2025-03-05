@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import log from "electron-log/renderer";
+const log = console;
 import type { SerialPort as SP } from "serialport";
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import { delay } from "../../main/utils/delay";

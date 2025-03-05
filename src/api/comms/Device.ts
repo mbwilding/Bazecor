@@ -1,6 +1,6 @@
 import { SerialPort } from "serialport";
 import { DeviceClass, DeviceType } from "@Renderer/types/devices";
-import log from "electron-log/renderer";
+const log = console;
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import { VirtualType } from "@Renderer/types/virtual";
 import HID from "../hid/hid";

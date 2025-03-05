@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-// import log from "electron-log/renderer";
 import { SerialPort } from "serialport";
 // import { ErrorCallback } from "@serialport/stream";
 // import { PortInfo } from "@serialport/bindings-cpp";

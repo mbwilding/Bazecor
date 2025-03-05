@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 
 export default class DeviceMap extends Map<string, string> {
   isUpdated(key: string, value: string): boolean {

@@ -21,7 +21,7 @@
  *
  */
 
-import log from "electron-log/renderer";
+const log = console;
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import KeymapISO from "./components/Keymap-ISO";
 import aFN from "../arrayFillNum";

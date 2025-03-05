@@ -19,7 +19,7 @@ import React, { useState, useEffect } from "react";
 import { ipcRenderer } from "electron";
 import { toast } from "react-toastify";
 import fs from "fs";
-import log from "electron-log/renderer";
+const log = console;
 
 // React Bootstrap Components
 import { Card, CardContent, CardHeader, CardTitle } from "@Renderer/components/atoms/Card";

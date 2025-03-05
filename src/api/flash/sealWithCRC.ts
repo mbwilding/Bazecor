@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-buffer-constructor */
-import log from "electron-log/renderer";
+const log = console;
 import { crc32 } from "easy-crc";
 import { SealType } from "./types";
 

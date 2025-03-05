@@ -17,7 +17,7 @@
 import { ipcRenderer } from "electron";
 import fs from "fs";
 import path from "path";
-import log from "electron-log/renderer";
+const log = console;
 import Focus from "../../focus";
 import Hardware from "../../hardware";
 import { delay } from "../../../main/utils/delay";

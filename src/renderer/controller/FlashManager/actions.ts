@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import { DeviceTools } from "@Renderer/DeviceContext";
 import * as Context from "./context";
 

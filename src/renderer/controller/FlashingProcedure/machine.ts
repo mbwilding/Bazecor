@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import { setup, assign, raise, fromPromise } from "xstate";
-import log from "electron-log/renderer";
+const log = console;
 
 import * as Actions from "./actions";
 import * as Context from "./context";

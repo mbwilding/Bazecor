@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import Styled from "styled-components";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";

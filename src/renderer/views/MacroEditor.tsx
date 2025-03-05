@@ -19,7 +19,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
-import log from "electron-log/renderer";
+const log = console;
 import { ipcRenderer } from "electron";
 import fs from "fs";
 

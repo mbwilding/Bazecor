@@ -15,7 +15,7 @@
  */
 
 import { ipcRenderer } from "electron";
-import log from "electron-log/renderer";
+const log = console;
 import fs from "fs";
 import * as path from "path";
 import SideFlaser from "./sideFlasher";

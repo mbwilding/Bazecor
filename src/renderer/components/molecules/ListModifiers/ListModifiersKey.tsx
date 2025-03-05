@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 import React, { useState, useEffect } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import { AnimatePresence, motion } from "framer-motion";
 import { KeyType } from "@Renderer/types/layout";
 import OSKey from "../KeyTags/OSKey";

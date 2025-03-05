@@ -19,7 +19,7 @@ import React, { LegacyRef, useEffect, useState } from "react";
 import Styled from "styled-components";
 import { Button } from "@Renderer/components/atoms/Button";
 import { i18n } from "@Renderer/i18n";
-import log from "electron-log/renderer";
+const log = console;
 
 import { IconDelete, IconStopWatch } from "@Renderer/components/atoms/icons";
 import PreviewMacroModal from "@Renderer/components/molecules/CustomModal/ModalPreviewMacro";

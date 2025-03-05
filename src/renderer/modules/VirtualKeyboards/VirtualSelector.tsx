@@ -4,7 +4,7 @@ import { ipcRenderer } from "electron";
 import { toast } from "react-toastify";
 import path from "path";
 import fs from "fs";
-import log from "electron-log/renderer";
+const log = console;
 
 import { IconArrowRight, IconCloudDownload, IconKeyboard, IconUpload } from "@Renderer/components/atoms/icons";
 import { Button } from "@Renderer/components/atoms/Button";

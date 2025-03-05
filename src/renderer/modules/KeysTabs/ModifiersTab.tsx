@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "react-toastify";
-import log from "electron-log/renderer";
+const log = console;
 
 import { Button } from "@Renderer/components/atoms/Button";
 import Heading from "@Renderer/components/atoms/Heading";

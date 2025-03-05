@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import { toast } from "react-toastify";
 
 import { PageHeader } from "@Renderer/modules/PageHeader";

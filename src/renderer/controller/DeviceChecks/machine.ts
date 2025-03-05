@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import { setup, assign, raise, fromPromise } from "xstate";
 
 import { BackupType } from "@Renderer/types/backups";

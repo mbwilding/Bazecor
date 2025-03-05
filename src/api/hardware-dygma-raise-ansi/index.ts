@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import log from "electron-log/renderer";
+const log = console;
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import KeymapANSI from "./components/Keymap-ANSI";
 import aFN from "../arrayFillNum";

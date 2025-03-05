@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import React, { useReducer, createContext, useContext, useMemo } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import { VirtualType } from "@Types/virtual";
 import serial from "../api/comms/serial";
 import Device, { State } from "../api/comms/Device";
@@ -30,7 +30,7 @@ export type Dispatch = (action: Action) => void;
 const DeviceContext = createContext<ContextType>(undefined);
 
 function deviceReducer(state: State, action: Action) {
-  // log.verbose("Entering DeviceREDUCER!!!", state, action);
+  // log.log("Entering DeviceREDUCER!!!", state, action);
   switch (action.type) {
     case "changeCurrent": {
       if (action.payload.selected === -1) {
@@ -130,7 +130,7 @@ const list = async () => {
   // working with hid
   const hidDevs = await HID.getDevices();
   for (const [index, device] of hidDevs.entries()) {
-    log.verbose("Checking: ", device);
+    log.log("Checking: ", device);
     const hid = new HID();
     const connected = await hid.isDeviceConnected(index);
     const supported = await hid.isDeviceSupported(index);
@@ -154,7 +154,7 @@ const enumerateDevice = async (bootloader: boolean, device: USBDevice, existingI
   // const hidDev = await HID.getDevices();
   // for (const [index, d] of hidDev.entries()) {
   //   if (!existingIDs.includes(d.productName)) {
-  //     log.verbose("Checking: ", d, existingIDs);
+  //     log.log("Checking: ", d, existingIDs);
   //     const hid = new HID();
   //     const connected = await hid.isDeviceConnected(index);
   //     const supported = await hid.isDeviceSupported(index);
@@ -185,7 +185,7 @@ const listNonConnected = async (bootloader: boolean, existingIDs: string[]) => {
   // Gathering HID Devices
   const hidDevs = await HID.getDevices();
   for (const [index, device] of hidDevs.entries()) {
-    log.verbose("Checking: ", device);
+    log.log("Checking: ", device);
     if (existingIDs.includes((device as unknown as Device)?.device?.chipId)) {
       hidDevicesPresent.push((device as unknown as Device).device.chipId);
       break;
@@ -228,21 +228,21 @@ const connect = async (device: Device | VirtualType) => {
     if (isVirtualType(device)) {
       const result = await new Device(device, "virtual");
       result.device.chipId = result.serialNumber;
-      log.verbose(`the device is ${result.type} type, and connected as: `, result);
+      log.log(`the device is ${result.type} type, and connected as: `, result);
       return result;
     }
     if (Device.isDevice(device)) {
       if (device.type === "serial") {
         const result = await serial.connect(device);
         await device.addPort(result);
-        log.verbose(`the device is ${device.type} type, and connected as:`, result);
+        log.log(`the device is ${device.type} type, and connected as:`, result);
         return device;
       }
       if (device.type === "hid") {
-        log.verbose(device.port);
+        log.log(device.port);
         const result = await (device.port as HID).connect();
         await device.addHID();
-        log.verbose(`the device is ${device.type} type, and connected as: `, result);
+        log.log(`the device is ${device.type} type, and connected as: `, result);
         return device;
       }
       if (device.type === "virtual") {
@@ -264,7 +264,7 @@ const disconnect = async (device: Device) => {
     if (!device?.isClosed) {
       await device.close();
     }
-    log.verbose("device disconnected successfully");
+    log.log("device disconnected successfully");
     return true;
   } catch (error) {
     log.error(error);

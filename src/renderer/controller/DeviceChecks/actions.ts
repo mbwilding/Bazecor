@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import { BackupType } from "@Renderer/types/backups";
 import { State } from "src/api/comms/Device";
 import Backup from "../../../api/backup";

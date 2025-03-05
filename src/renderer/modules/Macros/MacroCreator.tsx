@@ -21,7 +21,7 @@ import Styled from "styled-components";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@Renderer/components/atoms/Tabs";
 import { motion } from "framer-motion";
-import log from "electron-log/renderer";
+const log = console;
 import { i18n } from "@Renderer/i18n";
 import {
   IconKeyboard,

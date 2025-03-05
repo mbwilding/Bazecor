@@ -31,7 +31,7 @@
  */
 
 import { crc32 } from "easy-crc";
-import log from "electron-log/renderer";
+const log = console;
 import type { PortInfo } from "@serialport/bindings-cpp";
 import { delay } from "../../../main/utils/delay";
 

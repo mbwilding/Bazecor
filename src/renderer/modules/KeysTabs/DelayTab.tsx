@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 import Styled from "styled-components";
-import log from "electron-log/renderer";
+const log = console;
 import { i18n } from "@Renderer/i18n";
 
 import CustomRadioCheckBox from "@Renderer/components/molecules/Form/CustomRadioCheckBox";

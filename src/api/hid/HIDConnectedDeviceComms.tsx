@@ -1,4 +1,4 @@
-import log from "electron-log/renderer";
+const log = console;
 import HID from "./hid";
 import { ConnectedDevice } from "../ConnectedDevice";
 import { ConnectedDeviceComms, ConnnectedDeviceCommsHandler, ErrorHandler } from "../ConnectedDeviceComms";

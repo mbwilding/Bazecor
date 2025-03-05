@@ -19,7 +19,7 @@
  */
 
 import React, { useState } from "react";
-import log from "electron-log/renderer";
+const log = console;
 import { Link } from "react-router-dom";
 import { PageHeader } from "@Renderer/modules/PageHeader";
 import { useDevice, DeviceTools } from "@Renderer/DeviceContext";

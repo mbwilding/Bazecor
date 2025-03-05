@@ -1,7 +1,7 @@
 import React from "react";
 import LogoLoader from "@Renderer/components/atoms/loader/LogoLoader";
 import Heading from "@Renderer/components/atoms/Heading";
-import log from "electron-log/renderer";
+const log = console;
 
 interface LoaderLayoutProps {
   steps: number;

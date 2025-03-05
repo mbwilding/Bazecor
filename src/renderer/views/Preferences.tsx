@@ -19,7 +19,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ipcRenderer } from "electron";
 import { motion } from "framer-motion";
-import log from "electron-log/renderer";
+const log = console;
 import { toast } from "react-toastify";
 import { i18n } from "@Renderer/i18n";
 import "react-toastify/dist/ReactToastify.css";
