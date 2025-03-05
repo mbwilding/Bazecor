@@ -127,7 +127,7 @@ const initialKBData = {
   showDefaults: false,
 };
 
-const initialPreferences = (async () => {
+const initialPreferences = await (async () => {
   const verbose = await store.get<boolean>("settings.verbose");
   const darkMode = await store.get<string>("settings.darkMode");
   const neurons = await store.get<Neuron[]>("neurons");
