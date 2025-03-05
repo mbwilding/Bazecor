@@ -93,26 +93,49 @@ fn color_map_set(data: Vec<u8>, storage: State<Storage>) -> Result<()> {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let mut builder = tauri::Builder::default();
+
+    #[cfg(debug_assertions)]
+    {
+        let devtools = tauri_plugin_devtools::init();
+        builder = builder.plugin(devtools);
+    }
+
+    #[cfg(not(debug_assertions))]
+    {
+        use tauri_plugin_log::{Builder, Target, TargetKind};
+
+        let log_plugin = Builder::default()
+            .targets([
+                Target::new(TargetKind::Stdout),
+                Target::new(TargetKind::LogDir { file_name: None }),
+                Target::new(TargetKind::Webview),
+            ])
+            .build();
+
+        builder = builder.plugin(log_plugin);
+    }
+
+    builder
         .manage(Storage {
             focus: Default::default(),
         })
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_os::init())
-        .plugin(
-            tauri_plugin_log::Builder::new()
-                .format(|out, message, record| {
-                    let tech = if record.target() == "bazecor_lib" {
-                        "B"
-                    } else {
-                        "F"
-                    };
-                    out.finish(format_args!("[{}] {}: {}", record.level(), tech, message))
-                })
-                // .level(log::LevelFilter::Debug)
-                .build(),
-        )
+        // .plugin(
+        //     tauri_plugin_log::Builder::new()
+        //         .format(|out, message, record| {
+        //             let tech = if record.target() == "bazecor_lib" {
+        //                 "B"
+        //             } else {
+        //                 "F"
+        //             };
+        //             out.finish(format_args!("[{}] {}: {}", record.level(), tech, message))
+        //         })
+        //         // .level(log::LevelFilter::Debug)
+        //         .build(),
+        // )
         .setup(|app| {
             // Create a new store or load the existing one
             // this also put the store in the app's resource table
