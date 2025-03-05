@@ -19,14 +19,10 @@
  */
 const log = console;
 // import { spawn } from "child_process";
-import type { SerialPort, SerialPortOpenOptions } from "serialport";
+import { DelimiterParser, SerialPort, type SerialPortOpenOptions } from "serialport";
 import type { AutoDetectTypes, PortInfo } from "@serialport/bindings-cpp";
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import { delay } from "../../main/utils/delay";
-
-// TODO: any reason we can't import directly?
-import * as sp from 'serialport';
-import { DelimiterParser } from '@serialport/parser-delimiter';
 
 type AnyFunction = (...args: unknown[]) => unknown;
 
@@ -51,14 +47,14 @@ export class Focus {
   commands: CommandOverrides = { help: this._help };
 
   protected async listSerialPorts(): Promise<PortInfo[]> {
-    return sp.SerialPort.list();
+    return SerialPort.list();
   }
 
   protected createSerialPort<T extends AutoDetectTypes>(
     options: SerialPortOpenOptions<T>,
     openCallback?: ErrorCallback,
   ): SerialPort<T> {
-    return new sp.SerialPort(options, openCallback);
+    return new SerialPort(options, openCallback);
   }
 
   async find(...devices: DygmaDeviceType[]) {
@@ -88,7 +84,7 @@ export class Focus {
   callbacks: Array<(value: unknown) => void>;
   supportedCommands: Array<string>;
   _port: SerialPort;
-  parser: typeof DelimiterParser;
+  parser: DelimiterParser;
 
   async open(path: string, info: DygmaDeviceType): Promise<SerialPort> {
     if (this._port !== undefined && this._port.isOpen === false) {
@@ -100,7 +96,7 @@ export class Focus {
         const testingDevices = await this.listSerialPorts();
         log.info(testingDevices);
         this._port = this.createSerialPort({ path, baudRate: 115200, autoOpen: false, endOnClose: true });
-        await this._port.open((err: Error) => {
+        this._port.open((err: Error) => {
           if (err) log.error("error when opening port: ", err);
           else log.info("connected");
         });
