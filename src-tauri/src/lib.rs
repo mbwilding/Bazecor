@@ -143,6 +143,9 @@ pub fn run() {
             // this also put the store in the app's resource table
             // so your following calls `store` calls (from both rust and js)
             // will reuse the same store
+            //
+            // Directory:
+            //   macOS: ~/Library/Application Support/com.bazecore.app/settings.json
             let store = app.store("settings.json")?;
 
             // Note that values must be serde_json::Value instances,
