@@ -345,19 +345,20 @@ function App() {
       }
     };
 
+    // console.log("IMPLEMENT: ipcRenderer stuff in App.tsx");
     // Setting up function to receive O.S. dark theme changes
-    ipcRenderer.on("darkTheme-update", darkThemeListener);
-    ipcRenderer.on("usb-disconnected", usbListener);
-    ipcRenderer.on("usb-connected", newUsbConnection);
-    ipcRenderer.on("hid-disconnected", hidListener);
-    ipcRenderer.on("hid-connected", notifyBtDevice);
-    return () => {
-      ipcRenderer.off("darkTheme-update", darkThemeListener);
-      ipcRenderer.off("usb-disconnected", usbListener);
-      ipcRenderer.off("usb-connected", newUsbConnection);
-      ipcRenderer.off("hid-disconnected", hidListener);
-      ipcRenderer.off("hid-connected", notifyBtDevice);
-    };
+    // ipcRenderer.on("darkTheme-update", darkThemeListener);
+    // ipcRenderer.on("usb-disconnected", usbListener);
+    // ipcRenderer.on("usb-connected", newUsbConnection);
+    // ipcRenderer.on("hid-disconnected", hidListener);
+    // ipcRenderer.on("hid-connected", notifyBtDevice);
+    // return () => {
+    //   ipcRenderer.off("darkTheme-update", darkThemeListener);
+    //   ipcRenderer.off("usb-disconnected", usbListener);
+    //   ipcRenderer.off("usb-connected", newUsbConnection);
+    //   ipcRenderer.off("hid-disconnected", hidListener);
+    //   ipcRenderer.off("hid-connected", notifyBtDevice);
+    // };
   }, [connected, dispatch, navigate, onKeyboardDisconnect, state.currentDevice, state.deviceList]);
 
   const toggleFwUpdate = async (value: boolean) => {
