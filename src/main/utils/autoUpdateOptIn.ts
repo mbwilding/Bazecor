@@ -4,7 +4,7 @@ import Store from "../managers/Store";
 const store = Store.getStore();
 
 const autoUpdateOptIn = async (mainWindow: BrowserWindow) => {
-  const autoUpdate = await store.get("settings.autoUpdate") as boolean;
+  const autoUpdate = await store.get<boolean>("settings.autoUpdate");
 
   if (autoUpdate === undefined && process.platform !== "linux") {
     let dialogOpts: MessageBoxOptions;

@@ -127,15 +127,21 @@ const initialKBData = {
   showDefaults: false,
 };
 
-const initialPreferences = {
-  devTools: false,
-  advanced: false,
-  verbose: store.get("settings.verbose") as boolean,
-  darkMode: store.get("settings.darkMode") as string,
-  neurons: store.get("neurons") as Array<Neuron>,
-  selectedNeuron: 0,
-  neuronID: "",
-};
+const initialPreferences = (async () => {
+  const verbose = await store.get<boolean>("settings.verbose");
+  const darkMode = await store.get<string>("settings.darkMode");
+  const neurons = await store.get<Neuron[]>("neurons");
+
+  return {
+    devTools: false,
+    advanced: false,
+    verbose,
+    darkMode,
+    neurons,
+    selectedNeuron: 0,
+    neuronID: "",
+  };
+})();
 
 const Preferences = (props: PreferencesProps) => {
   const { state } = useDevice();
@@ -263,11 +269,15 @@ const Preferences = (props: PreferencesProps) => {
         ...prevKbData,
         ...newKbData,
       }));
+
+      const darkMode = await store.get<string>("settings.darkMode");
+      const neurons = await store.get<Neuron[]>("neurons");
+
       setPreferencesState(prevPreferencesState => ({
         ...prevPreferencesState,
         neuronID: localNeuronID,
-        darkMode: store.get("settings.darkMode") as string,
-        neurons: store.get("neurons") as Array<Neuron>,
+        darkMode,
+        neurons,
       }));
     }
     return localNeuronID;
@@ -612,10 +622,11 @@ const Preferences = (props: PreferencesProps) => {
 
       console.log("IMPLEMENT: Is DevTools Opened");
       // const devTools = await ipcRenderer.invoke("is-devtools-opened");
-      // let darkMode = store.get("settings.darkMode") as string;
-      // if (!darkMode) {
-      //   darkMode = "system";
-      // }
+
+      let darkMode = await store.get<string>("settings.darkMode");
+      if (!darkMode) {
+        darkMode = "system";
+      }
 
       // const verbose = store.get("settings.verbose") as boolean;
       setPreferencesState(prevPreferencesState => ({

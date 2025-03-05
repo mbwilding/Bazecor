@@ -55,11 +55,12 @@ class ErrorBoundary extends React.Component<Myprops, Mystate> {
     super(props);
 
     let isDark;
-    const mode = store.get("settings.darkMode");
-    isDark = mode === "dark";
-    if (mode === "system") {
-      isDark = true; // TODO: Set via system preference
-    }
+    store.get<string>("settings.darkMode").then((mode) => {
+      isDark = mode === "dark";
+      if (mode === "system") {
+        isDark = true; // TODO: Set via system preference
+      }
+    });
 
     this.state = { hasError: false, errorMessage: "", isDark };
   }

@@ -54,6 +54,7 @@ import DeviceManager from "./views/DeviceManager";
 import Device from "../api/comms/Device";
 import { HIDNotifdevice } from "./types/hid";
 import HID from "../api/hid/hid";
+import { locale as Locale } from "@tauri-apps/plugin-os";
 
 const store = Store.getStore();
 
@@ -83,17 +84,17 @@ function App() {
   const updateStorageSchema = async () => {
     // Update stored settings schema
     log.log("Retrieving settings: ", oldSettings);
-    const locale = await ipcRenderer.invoke("get-Locale");
-    if (store.get("settings.language") !== undefined) {
-      i18n.setLanguage(store.get("settings.language").toString());
+    const locale = await Locale();
+    if (await store.get<string>("settings.language") !== undefined) {
+      i18n.setLanguage(await store.get<string>("settings.language"));
     }
 
     // when moving from other version, config may for superkeys may contain wrong data (wrong legnth, nulls)
     // so we have to fix it. This fix should not be here. It should be in separate file.
     // Store class could handle this kind of things.
-    const neurons = store.get("neurons");
+    const neurons = await store.get<Neuron[]>("neurons");
     if (neurons !== undefined) {
-      (neurons as Neuron[])
+      neurons
         .flatMap(n => n.superkeys)
         .map(sk => sk.actions)
         .filter(a => a.length !== 5 || a.some(n => typeof n !== "number"))

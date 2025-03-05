@@ -124,7 +124,7 @@ pub fn run() {
             // store.set("settings.backupFolder", json!(""));
             // store.set("settings.backupFrequency", json!(0));
             // store.set("settings.language", json!("english"));
-            // store.set("settings.darkMode", json!("system"));
+            store.set("settings.darkMode", json!("dark")); // TODO: system
             // store.set("settings.hideBluetoothExperimental", json!(false));
             // store.set("settings.showDefaults", json!(false));
             // store.set("settings.autoUpdate", json!(null));
