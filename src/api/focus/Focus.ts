@@ -152,7 +152,7 @@ export class Focus {
       // Setup error port alert
       this._port.on("error", async (err: Error) => {
         log.error(`Error on SerialPort: ${err}`);
-        await this._port.close();
+        this._port.close();
       });
     }
     this.closed = false;
@@ -172,9 +172,9 @@ export class Focus {
       if (this._port) {
         while (this._port.isOpen === true) {
           log.info("Closing device port!!");
-          result = await this._port.close();
-          await this._port.removeAllListeners();
-          await this._port.destroy();
+          result = this._port.close();
+          this._port.removeAllListeners();
+          this._port.destroy();
         }
         delete this._port;
         this.closed = true;
