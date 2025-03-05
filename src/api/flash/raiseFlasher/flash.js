@@ -153,7 +153,7 @@ export class FlashRaise {
   async saveBackupFile() {
     console.log("IMPLEMENT: User Data");
     // const userDataPath = await ipcRenderer.invoke("get-userPath", "userData");
-    const userDataPath = "userData"
+    const userDataPath = "userData";
 
     const route = path.join(userDataPath, this.backupFileName + ".json");
     log.info("saving file to: " + route);
