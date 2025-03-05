@@ -120,8 +120,8 @@ const DeviceManager = (props: DeviceManagerProps) => {
       });
       dispatch({ type: "addDevicesList", payload: newDeviceList });
       log.info("Available Devices: ", newDeviceList);
-      newDeviceList.forEach((item, index) => {
-        const neurons = store.get("neurons") as Neuron[];
+      newDeviceList.forEach(async (item, index) => {
+        const neurons = await store.get<Neuron[]>("neurons");
         const neuron = neurons.find(n => n.id?.toLowerCase() === item.device?.chipId?.toLowerCase());
         toShowDevs.push({
           name: neuron?.name ? neuron.name : "",
