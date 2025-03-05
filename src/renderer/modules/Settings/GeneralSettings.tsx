@@ -18,6 +18,7 @@ import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
 const log = console;
+import { platform } from "@tauri-apps/plugin-os";
 
 // Types
 import { LayerType, Neuron } from "@Renderer/types/neurons";
@@ -84,7 +85,9 @@ const GeneralSettings = ({
   const { state } = useDevice();
 
   useEffect(() => {
-    setSelectedLanguage(getLanguage(store.get("settings.language") as string));
+    (async () => {
+      setSelectedLanguage(getLanguage(await store.get<string>("settings.language")));
+    })();
   }, []);
 
   const changeLanguage = (language: LangOptions) => {
@@ -251,7 +254,7 @@ const GeneralSettings = ({
                 size="sm"
               />
             </div>
-            {process.platform !== "linux" ? (
+            {platform() !== "linux" ? (
               <div className="flex items-center w-full justify-between py-2 border-b-[1px] border-gray-50 dark:border-gray-700">
                 <label htmlFor="autoUpdateSwitch" className="m-0 text-sm font-semibold tracking-tight">
                   {i18n.preferences.autoUpdate}

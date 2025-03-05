@@ -42,11 +42,11 @@ const AltVerboses: { [key: string]: string } = {
   macos: "Option",
 };
 
-const plat = platform();
-const guiLabel = GuiLabels[plat] || "Gui";
-const guiVerbose = GuiVerboses[plat] || "Gui";
-const AltLabel = AltLabels[plat] || "ALT";
-const AltVerbose = AltVerboses[plat] || "Alt";
+const os = platform();
+const guiLabel = GuiLabels[os] || "Gui";
+const guiVerbose = GuiVerboses[os] || "Gui";
+const AltLabel = AltLabels[os] || "ALT";
+const AltVerbose = AltVerboses[os] || "Alt";
 
 const ModifiersTable = {
   groupName: "Modifiers",

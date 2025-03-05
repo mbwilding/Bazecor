@@ -17,6 +17,7 @@ import {
   parseKeymapRaw,
   parsePaletteRaw,
 } from "../parsers";
+import { platform } from "@tauri-apps/plugin-os";
 
 const store = Store.getStore();
 
@@ -275,7 +276,7 @@ export default class Backup {
       const folderPath = path
         .join(backupFolder, device.device.info.product, neuronID)
         .split(path.sep)
-        .join(path[process.platform === "win32" ? "win32" : "posix"].sep);
+        .join(path[platform() === "windows" ? "win32" : "posix"].sep);
       log.info("going to search for newest file in: ", folderPath);
 
       // sorting folder files to find newest

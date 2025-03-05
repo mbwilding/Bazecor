@@ -5,6 +5,7 @@ import { sendKeyUp, sendkeyDown } from "./configureCaptureKeys";
 import { listDrivesHandler } from "../utils/listDrivesHandler";
 import GlobalRecording from "../managers/GlobalRecording";
 import Window from "../managers/Window";
+import { platform } from "@tauri-apps/plugin-os";
 
 const removeIPCs = () => {
   ipcMain.removeHandler("start-recording");
@@ -83,9 +84,11 @@ const configureIPCs = () => {
 
   ipcMain.handle("get-NativeTheme", () => nativeTheme.shouldUseDarkColors);
 
+  const os = platform();
+
   ipcMain.handle("ask-for-accessibility", async () => {
-    log.log("someone asked for accessibility", process.platform);
-    if (process.platform !== "darwin") {
+    log.log("someone asked for accessibility", os);
+    if (os !== "macos") {
       return true;
     }
     const isTrusted = systemPreferences.isTrustedAccessibilityClient(false);

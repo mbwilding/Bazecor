@@ -47,6 +47,10 @@ import getLanguage, { LangOptions } from "@Renderer/modules/KeyPickerKeyboard/Ke
 import { getKeyboardLayout } from "@Renderer/utils/getKeyboardLayout";
 import { SegmentedKeyType } from "@Renderer/types/layout";
 
+import { platform } from "@tauri-apps/plugin-os";
+
+const os = platform();
+
 const Style = Styled.div`
 width: 100%;
 .keyboard {
@@ -301,7 +305,6 @@ const KeyPickerReduced = (props: Props) => {
   const Lang: KeyProps[] = getLanguage(selectedlanguage);
   const keyboardLayout = getKeyboardLayout(selectedlanguage);
 
-  const os = process.platform;
   const iconlist: { [key: string]: React.JSX.Element } = {
     Backspace: <BsBackspace />,
     Enter: <MdKeyboardReturn />,
@@ -311,9 +314,9 @@ const KeyPickerReduced = (props: Props) => {
     Shift: <BsShift />,
     App: <FiMenu />,
     Win:
-      os === "win32" ? (
+      os === "windows" ? (
         <AiFillWindows className="biggerWin" />
-      ) : os === "darwin" ? (
+      ) : os === "macos" ? (
         <OSKey renderKey="os" />
       ) : (
         <FaLinux className="biggerLinux" />
@@ -456,7 +459,7 @@ const KeyPickerReduced = (props: Props) => {
         disabled={(key.mod === disableMods && key.tap !== true) || key.move === disableMove || disableAll}
         idArray={key.idArray}
         keyCode={code}
-        platform={process.platform}
+        platform={os}
       />
     );
   });
@@ -466,7 +469,7 @@ const KeyPickerReduced = (props: Props) => {
         <div className="keysContainer">
           <div className="keysRow keysOrdinaryKeyboard">
             <svg
-              className={`svgStyle ${process.platform} ${keyboardLayout}`}
+              className={`svgStyle ${os} ${keyboardLayout}`}
               viewBox="0 0 1070 208"
               preserveAspectRatio="xMidYMin slice"
             >

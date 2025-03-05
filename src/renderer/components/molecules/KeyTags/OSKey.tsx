@@ -3,6 +3,7 @@ import { FaLinux } from "react-icons/fa";
 import { AiFillWindows } from "react-icons/ai";
 import { IconCommandMacOs } from "@Renderer/components/atoms/icons";
 import { OperationSystemIcons } from "@Types/layout";
+import { platform } from "@tauri-apps/plugin-os";
 
 type OperationSystemKey = "shift" | "control" | "os" | "alt" | "altGr";
 
@@ -42,9 +43,9 @@ interface OSKeyProps {
 // const AltVerbose = AltVerboses[process.platform] || "Alt";
 
 const OSKey = ({ renderKey, direction, size = "md" }: OSKeyProps) => {
-  const operationSystem = process.platform;
+  const operationSystem = platform();
   const operationSystemIcons = useMemo<OperationSystemIcons>(() => {
-    if (operationSystem === "darwin") {
+    if (operationSystem === "macos") {
       return {
         shift: {
           xs: "s",
@@ -73,7 +74,7 @@ const OSKey = ({ renderKey, direction, size = "md" }: OSKeyProps) => {
         },
       };
     }
-    if (operationSystem === "win32") {
+    if (operationSystem === "windows") {
       return {
         shift: {
           xs: "s",
@@ -131,7 +132,7 @@ const OSKey = ({ renderKey, direction, size = "md" }: OSKeyProps) => {
     };
   }, [operationSystem]);
 
-  // win32, darwin, linux
+  // windows, macos, linux
   // console.log(platform);
   return (
     <div className="whitespace-nowrap flex gap-0.5 items-center">

@@ -7,6 +7,7 @@ import GlobalRecording from "./managers/GlobalRecording";
 import { addUSBListeners, removeUSBListeners } from "./setup/configureUSB";
 import { removeIPCs } from "./setup/configureIPCs";
 import configureAutoUpdate from "./setup/configureAutoUpdate";
+import { platform } from "@tauri-apps/plugin-os";
 
 if (process.env.NODE_ENV === "development") {
   log.transports.console.level = "verbose";
@@ -46,7 +47,7 @@ app.on("before-quit", () => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+  if (platform() !== "macos") {
     app.quit();
   } else {
     removeIPCs();

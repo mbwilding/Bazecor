@@ -46,6 +46,10 @@ import { getKeyboardLayout } from "@Renderer/utils/getKeyboardLayout";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@Renderer/components/atoms/Tooltip";
 import { SegmentedKeyType } from "@Renderer/types/layout";
 
+import { platform } from "@tauri-apps/plugin-os";
+
+const os = platform();
+
 const Style = Styled.div`
 width: 100%;
 .keyboard {
@@ -150,7 +154,6 @@ const KeyPickerPreview = (props: Props) => {
   const Lang: KeyProps[] = getLanguage(selectedlanguage);
   const keyboardLayout = getKeyboardLayout(selectedlanguage);
 
-  const os = process.platform;
   const iconlist: { [key: string]: React.JSX.Element } = {
     Backspace: <BsBackspace />,
     Enter: <MdKeyboardReturn />,
@@ -161,9 +164,9 @@ const KeyPickerPreview = (props: Props) => {
     App: <FiMenu />,
     Win: (
       <>
-        {os === "win32" ? <AiFillWindows className="biggerWin" /> : ""}
-        {os === "darwin" ? <OSKey renderKey="os" /> : ""}
-        {os !== "win32" && os !== "darwin" ? <FaLinux className="biggerLinux" /> : ""}
+        {os === "windows" ? <AiFillWindows className="biggerWin" /> : ""}
+        {os === "macos" ? <OSKey renderKey="os" /> : ""}
+        {os !== "windows" && os !== "macos" ? <FaLinux className="biggerLinux" /> : ""}
       </>
     ),
     ArrUp: <AiOutlineArrowUp className="bigger" />,
@@ -286,7 +289,7 @@ const KeyPickerPreview = (props: Props) => {
         disabled={key.mod === disableMods || key.move === disableMove || disableAll}
         idArray={key.idArray}
         keyCode={code}
-        platform={process.platform}
+        platform={os}
       />
     );
   });
@@ -297,7 +300,7 @@ const KeyPickerPreview = (props: Props) => {
         <div className="px-3 py-3 rounded-md mt-3 flex flex-col w-full bg-gray-25 dark:bg-gray-700/60">
           <h4 className="mt-0 mb-1 uppercase text-xs tracking-wide text-gray-300 dark:text-gray-500">Preview</h4>
           <svg
-            className={`svgStyle ${process.platform} ${keyboardLayout} mx-auto w-full max-w-[1170px] overflow-hidden pointer-events-none`}
+            className={`svgStyle ${os} ${keyboardLayout} mx-auto w-full max-w-[1170px] overflow-hidden pointer-events-none`}
             viewBox="0 0 860 180"
             preserveAspectRatio="xMidYMin slice"
           >

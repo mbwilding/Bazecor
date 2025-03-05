@@ -1,14 +1,17 @@
 import { BrowserWindow, dialog, MessageBoxOptions } from "electron";
 import Store from "../managers/Store";
+import { platform } from "@tauri-apps/plugin-os";
+
+const os = platform();
 
 const store = Store.getStore();
 
 const autoUpdateOptIn = async (mainWindow: BrowserWindow) => {
   const autoUpdate = await store.get<boolean>("settings.autoUpdate");
 
-  if (autoUpdate === undefined && process.platform !== "linux") {
+  if (autoUpdate === undefined && os !== "linux") {
     let dialogOpts: MessageBoxOptions;
-    if (process.platform !== "darwin") {
+    if (os !== "macos") {
       dialogOpts = {
         type: "question",
         buttons: ["Decline", "Consent"],
