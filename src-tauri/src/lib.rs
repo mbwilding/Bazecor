@@ -145,7 +145,7 @@ pub fn run() {
             // will reuse the same store
             //
             // Directory:
-            //   macOS: ~/Library/Application Support/com.bazecore.app/settings.json
+            //   macOS: ~/Library/Application Support/com.bazecore.app
             let store = app.store("settings.json")?;
 
             // Note that values must be serde_json::Value instances,
