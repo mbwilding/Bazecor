@@ -72,7 +72,8 @@ export interface NonSerialDevice {
   usb: NonSerialDeviceDescriptor;
 }
 
-export interface DeviceType {
+// TODO: couldn't find export when interface
+export class DeviceType {
   path: string;
   manufacturer: string;
   serialNumber: string;
