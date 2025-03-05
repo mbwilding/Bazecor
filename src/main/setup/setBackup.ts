@@ -38,10 +38,10 @@ function deleteOldFiles(backupPath: string, period: number) {
   }
 }
 
-const setBackup = () => {
+const setBackup = async () => {
   const store = Store.getStore();
-  const bfolder = store.get("settings.backupFolder") as string;
-  const bfrequency = store.get("settings.backupFrequency") as number;
+  const bfolder = await store.get("settings.backupFolder") as string;
+  const bfrequency = await store.get("settings.backupFrequency") as number;
   log.log("** Checking backup folder value **");
   log.log(bfolder);
   if (bfolder === "" || bfolder === undefined) {

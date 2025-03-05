@@ -10,12 +10,12 @@ const configureNativeTheme = () => {
   nativeTheme.on("updated", onThemeChange());
 };
 
-const setTheme = () => {
+const setTheme = async () => {
   const store = Store.getStore();
-  let darkMode = store.get("settings.darkMode");
+  let darkMode = await store.get("settings.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
-    store.set("settings.darkMode", "system");
+    await store.set("settings.darkMode", "system");
   }
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode as NativeTheme["themeSource"];

@@ -1,7 +1,9 @@
 use anyhow::anyhow;
 use dygma_focus::prelude::*;
+use serde_json::json;
 use std::sync::Mutex;
 use tauri::{Result, State};
+use tauri_plugin_store::StoreExt;
 
 struct Storage {
     focus: Mutex<Option<Focus>>,
@@ -95,7 +97,11 @@ pub fn run() {
         .plugin(
             tauri_plugin_log::Builder::new()
                 .format(|out, message, record| {
-                    let tech = if record.target() == "bazecor_lib" { "B" } else { "F" };
+                    let tech = if record.target() == "bazecor_lib" {
+                        "B"
+                    } else {
+                        "F"
+                    };
                     out.finish(format_args!("[{}] {}: {}", record.level(), tech, message))
                 })
                 // .level(log::LevelFilter::Debug)
@@ -104,6 +110,37 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .manage(Storage {
             focus: Default::default(),
+        })
+        .plugin(tauri_plugin_store::Builder::default().build())
+        .setup(|app| {
+            // Create a new store or load the existing one
+            // this also put the store in the app's resource table
+            // so your following calls `store` calls (from both rust and js)
+            // will reuse the same store
+            let store = app.store("store.json")?;
+
+            // Note that values must be serde_json::Value instances,
+            // otherwise, they will not be compatible with the JavaScript bindings.
+            store.set("backupFolder", json!(""));
+            store.set("backupFrequency", json!(0));
+            store.set("language", json!("english"));
+            store.set("darkMode", json!("system"));
+            store.set("hideBluetoothExperimental", json!(false));
+            store.set("showDefaults", json!(false));
+            store.set("autoUpdate", json!(null));
+            store.set("verbose", json!(false));
+            store.set("version", json!(null));
+
+            // Get a value from the store.
+            let dark_mode = store
+                .get("darkMode")
+                .expect("Failed to get value from store");
+            println!("{}", dark_mode); // {"darkMode":"system"}
+
+            // Remove the store from the resource table
+            // store.close_resource();
+
+            Ok(())
         })
         .invoke_handler(tauri::generate_handler![
             find_all_devices,
