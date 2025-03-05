@@ -123,7 +123,13 @@ class KeymapDB {
   constructor() {
     this.keymapCodeTable = new Array<KeymapCodeTableType>();
     // create variable that get language from the local storage
-    this.language = getLanguage(store.get("settings.language"));
+
+    console.log("IMPLEMENT: settings.language");
+    // store.get<string>("settings.language").then((lang) => {
+    //   this.language = getLanguage(lang);
+    // });
+    this.language = "en-US";
+
     if (languagesDB[this.language] === undefined) {
       this.language = "en-US";
     }
@@ -276,7 +282,12 @@ class KeymapDB {
   }
 
   updateBaseKeyCode() {
-    this.language = getLanguage(store.get("settings.language"));
+    console.log("IMPLEMENT: settings.language");
+    // store.get<string>("settings.language").then((lang) => {
+    //   this.language = getLanguage(lang);
+    // });
+    this.language = "en-US";
+
     if (languagesDB[this.language] === undefined) {
       this.language = "en-US";
     }

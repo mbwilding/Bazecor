@@ -18,15 +18,15 @@ import {
   parsePaletteRaw,
 } from "../parsers";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const glob = require(`glob`);
 const store = Store.getStore();
 
 export default class Backup {
   neurons: Neuron[];
 
   constructor() {
-    this.neurons = store.get("neurons") as Neuron[];
+    store.get<Neuron[]>("neurons").then((neurons) => {
+      this.neurons = neurons;
+    });
     this.DoBackup = this.DoBackup.bind(this);
   }
 
@@ -72,13 +72,14 @@ export default class Backup {
   }
 
   static backupFolderValid = () => {
-    const folder = store.get("settings.backupFolder") as string;
-    try {
-      const stats = fs.statSync(folder);
-      return stats.isDirectory();
-    } catch (error) {
-      return false;
-    }
+    store.get<string>("settings.backupFolder").then((folder) => {
+      try {
+        const stats = fs.statSync(folder);
+        return stats.isDirectory();
+      } catch (error) {
+        return false;
+      }
+    });
   };
 
   /**
@@ -155,47 +156,47 @@ export default class Backup {
     }
     const { product } = device.device.info;
     const d = new Date();
-    const folder = store.get("settings.backupFolder") as string;
-    try {
-      if (localBackup.neuron.name === undefined || localBackup.neuron.name === "") localBackup.neuron.name = "NoName";
-      const folderPath = path.join(folder, product, localBackup.neuronID);
-      const fullPath = path.join(
-        folder,
-        product,
-        localBackup.neuronID,
-        `${
-          d.getFullYear() +
+    store.get<string>("settings.backupFolder").then((folder) => {
+      try {
+        if (localBackup.neuron.name === undefined || localBackup.neuron.name === "") localBackup.neuron.name = "NoName";
+        const folderPath = path.join(folder, product, localBackup.neuronID);
+        const fullPath = path.join(
+          folder,
+          product,
+          localBackup.neuronID,
+          `${d.getFullYear() +
           `0${d.getMonth() + 1}`.slice(-2) +
           `0${d.getDate()}`.slice(-2) +
           `0${d.getHours()}`.slice(-2) +
           `0${d.getMinutes()}`.slice(-2) +
           `0${d.getSeconds()}`.slice(-2)
-        }-${localBackup.neuron.name.replace(/[^\w\s]/gi, "")}.json`,
-      );
-      const json = JSON.stringify(localBackup, null, 2);
-      log.info(fullPath, folderPath, localBackup);
-      log.info("Creating folders");
-      fs.mkdir(folderPath, { recursive: true }, err => {
-        if (err) {
-          log.error(err);
-          throw err;
+          }-${localBackup.neuron.name.replace(/[^\w\s]/gi, "")}.json`,
+        );
+        const json = JSON.stringify(localBackup, null, 2);
+        log.info(fullPath, folderPath, localBackup);
+        log.info("Creating folders");
+        fs.mkdir(folderPath, { recursive: true }, err => {
+          if (err) {
+            log.error(err);
+            throw err;
+          }
+        });
+        log.info(`Saving Backup to -> ${fullPath}`);
+        try {
+          if (!fs.existsSync(path.parse(fullPath).dir)) {
+            fs.mkdirSync(path.parse(fullPath).dir, { recursive: true });
+          }
+          fs.writeFileSync(fullPath, json);
+        } catch (error) {
+          log.error(error);
+          throw error;
         }
-      });
-      log.info(`Saving Backup to -> ${fullPath}`);
-      try {
-        if (!fs.existsSync(path.parse(fullPath).dir)) {
-          fs.mkdirSync(path.parse(fullPath).dir, { recursive: true });
-        }
-        fs.writeFileSync(fullPath, json);
+        return true;
       } catch (error) {
-        log.error(error);
-        throw error;
+        log.warn("Error ocurred when saving backup to folder");
+        throw new Error(error);
       }
-      return true;
-    } catch (error) {
-      log.warn("Error ocurred when saving backup to folder");
-      throw new Error(error);
-    }
+    });
   }
 
   static restoreBackup = async (neurons: Neuron[], neuronID: string, backup: BackupType, device: Device) => {
@@ -279,8 +280,9 @@ export default class Backup {
 
       // sorting folder files to find newest
       let folderSync;
-      if (process.platform === "win32") folderSync = glob.sync(`${folderPath}\\*json`.replace(/\\/g, "/"));
-      else folderSync = glob.sync(`${folderPath}/*json`);
+      folderSync = fs.readdirSync(folderPath)
+        .filter(file => file.endsWith('.json'))
+        .map(file => path.join(folderPath, file));
       type FolderMapType = { name: string; ctime: Date };
       const mappedFolder: FolderMapType[] = folderSync.map((name: string) => ({
         name,

@@ -18,15 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 const log = console;
-import { spawn } from "child_process";
+// import { spawn } from "child_process";
 import type { SerialPort, SerialPortOpenOptions } from "serialport";
 import type { AutoDetectTypes, PortInfo } from "@serialport/bindings-cpp";
 import { DygmaDeviceType } from "@Renderer/types/dygmaDefs";
 import { delay } from "../../main/utils/delay";
 
 // TODO: any reason we can't import directly?
-const sp = eval('require("serialport")');
-const { DelimiterParser } = eval('require("@serialport/parser-delimiter")');
+import * as sp from 'serialport';
+import { DelimiterParser } from '@serialport/parser-delimiter';
 
 type AnyFunction = (...args: unknown[]) => unknown;
 
@@ -134,7 +134,8 @@ export class Focus {
       });
 
       if (process.platform === "darwin") {
-        spawn("stty", ["-f", this._port.path, "clocal"]);
+        console.log("IMPLEMENT: spawn child_process: DARWIN");
+        // spawn("stty", ["-f", this._port.path, "clocal"]);
       }
 
       // It's not necessary to retrieve the supported commands in bootloader mode
