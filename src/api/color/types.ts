@@ -1,11 +1,13 @@
-export interface RGB {
+// TODO: changed from interface to class to fix error
+export class RGB {
   r: number;
   g: number;
   b: number;
   rgb?: string;
 }
 
-export interface RGBW {
+// TODO: changed from interface to class to fix error
+export class RGBW {
   r: number;
   g: number;
   b: number;

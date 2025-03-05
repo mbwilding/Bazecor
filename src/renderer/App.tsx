@@ -19,7 +19,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Routes, Navigate, Route, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import path from "path";
 const log = console;
 import { i18n } from "@Renderer/i18n";

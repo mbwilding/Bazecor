@@ -182,3 +182,53 @@ class Store {
 }
 
 export default Store;
+
+// import { Store } from "@tauri-apps/plugin-store";
+// import { StorageType } from "@Renderer/types/store";
+//
+// export const STORE_KEYS: { [key: string]: keyof StorageType } = {
+//   settings: "settings",
+//   neurons: "neurons",
+// };
+//
+// class StoreWrapper {
+//   private static instance: Store;
+//   private static initialData: StorageType = {
+//     settings: {
+//       backupFolder: "",
+//       backupFrequency: 0,
+//       language: "english",
+//       darkMode: "system",
+//       hideBluetoothExperimental: false,
+//       showDefaults: false,
+//       autoUpdate: undefined,
+//       verbose: false,
+//       version: undefined,
+//     },
+//     neurons: [],
+//   };
+//
+//   private constructor() {
+//     // this comment is here so TS stays quiet
+//   }
+//
+//   public static async getStore() {
+//     if (!StoreWrapper.instance) {
+//       StoreWrapper.instance = new Store(".store.dat");
+//       await StoreWrapper.initializeStore();
+//     }
+//     return StoreWrapper.instance;
+//   }
+//
+//   private static async initializeStore() {
+//     const keys = await StoreWrapper.instance.keys();
+//     if (keys.length === 0) {
+//       // The store is empty, initialize it with default data
+//       await StoreWrapper.instance.set("settings", StoreWrapper.initialData.settings);
+//       await StoreWrapper.instance.set("neurons", StoreWrapper.initialData.neurons);
+//       await StoreWrapper.instance.save();
+//     }
+//   }
+// }
+//
+// export default StoreWrapper;

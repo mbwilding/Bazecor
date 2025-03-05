@@ -4,9 +4,9 @@ import Styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "@Renderer/theme/GlobalStyles";
 import Light from "@Renderer/theme/LightTheme";
 import Dark from "@Renderer/theme/DarkTheme";
-// import Store from "@Renderer/utils/Store";
+import Store from "@Renderer/utils/Store";
 
-// const store = Store.getStore();
+const store = Store.getStore();
 
 const Styles = Styled.div`
 .alert {
@@ -54,13 +54,12 @@ class ErrorBoundary extends React.Component<Myprops, Mystate> {
   constructor(props: any) {
     super(props);
 
-    const isDark = true;
-    // let isDark;
-    // const mode = store.get("settings.darkMode");
-    // isDark = mode === "dark";
-    // if (mode === "system") {
-    //   isDark = true; // TODO: ipcRenderer.invoke("get-NativeTheme");
-    // }
+    let isDark;
+    const mode = store.get("settings.darkMode");
+    isDark = mode === "dark";
+    if (mode === "system") {
+      isDark = true; // TODO: Set via system preference
+    }
 
     this.state = { hasError: false, errorMessage: "", isDark };
   }

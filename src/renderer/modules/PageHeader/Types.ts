@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
-export interface PageHeaderType {
+// TODO: changed from interface to class to fix error
+export class PageHeaderType {
   size?: number;
   text: string;
   styles?: string;
