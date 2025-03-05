@@ -16,40 +16,38 @@
  */
 
 import { withModifiers } from "./utils";
+import { platform } from "@tauri-apps/plugin-os";
 
 const GuiLabels: { [key: string]: string } = {
   linux: "LINUX",
-  win32: "WIN",
-  darwin: "⌘",
+  windows: "WIN",
+  macos: "⌘",
 };
 
 const GuiVerboses: { [key: string]: string } = {
   linux: "Linux",
-  win32: "Windows",
-  darwin: "Command",
+  windows: "Windows",
+  macos: "Command",
 };
 
 const AltLabels: { [key: string]: string } = {
   linux: "ALT",
-  win32: "ALT",
-  darwin: "⌥",
+  windows: "ALT",
+  macos: "⌥",
 };
 
 const AltVerboses: { [key: string]: string } = {
   linux: "Alt",
-  win32: "Alt",
-  darwin: "Option",
+  windows: "Alt",
+  macos: "Option",
 };
 
-console.log("IMPLEMENT: process.platform for key labels");
-// const guiLabel = GuiLabels[process.platform] || "Gui";
-// const guiVerbose = GuiVerboses[process.platform] || "Gui";
-// const AltLabel = AltLabels[process.platform] || "ALT";
-// const AltVerbose = AltVerboses[process.platform] || "Alt";
-const guiLabel = "Gui";
-const guiVerbose = "Gui";
-const AltLabel = "ALT";
-const AltVerbose = "Alt";
+
+const plat = platform();
+const guiLabel = GuiLabels[plat] || "Gui";
+const guiVerbose = GuiVerboses[plat] || "Gui";
+const AltLabel = AltLabels[plat] || "ALT";
+const AltVerbose = AltVerboses[plat] || "Alt";
 
 const ModifiersTable = {
   groupName: "Modifiers",

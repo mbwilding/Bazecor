@@ -436,7 +436,7 @@ function MacroEditor(props: MacroEditorProps) {
        */
       let chipID = await currentDevice.command("hardware.chip_id");
       chipID = chipID.replace(/\s/g, "");
-      const neurons = store.get("neurons") as Neuron[];
+      const neurons = await store.get<Neuron[]>("neurons");
       state.neurons = neurons;
       state.neuronID = chipID;
       state.storedMacros = neurons[neurons.findIndex(n => n.id === chipID)].macros;

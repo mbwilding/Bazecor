@@ -28,7 +28,7 @@ import ErrorBoundary from "./ErrorBoundary";
 
 // Log pass-through to Rust
 import { warn, debug, trace, info, error } from "@tauri-apps/plugin-log";
-import Store from "./utils/Store";
+
 function forwardConsole(fnName: "log" | "debug" | "info" | "warn" | "error", rust: (message: string) => Promise<void>) {
   const java = console[fnName];
   console[fnName] = message => {
@@ -44,12 +44,6 @@ forwardConsole("error", error);
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-
-// TODO: Remove
-// const store = Store.getStore();
-// store.get<string>("settings.darkMode").then((darkMode) => {
-//   console.log(`HIT: darkMode: ${darkMode}`);
-// });
 
 try {
   root.render(

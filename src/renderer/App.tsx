@@ -56,6 +56,7 @@ import { HIDNotifdevice } from "./types/hid";
 import HID from "../api/hid/hid";
 import { locale } from "@tauri-apps/plugin-os";
 import { homeDir } from "@tauri-apps/api/path";
+import { StorageType } from "./types/store";
 
 const store = Store.getStore();
 
@@ -82,17 +83,21 @@ interface TauriSettings {
   version?: string;
 }
 
-let oldSettingsInit: TauriSettings = await (async () => {
+let oldSettingsInit: StorageType = await (async () => {
   return {
-    backupFolder: await store.get<string>("backupFolder"),
-    backupFrequency: await store.get<number>("backupFrequency"),
-    language: await store.get<string>("language"),
-    darkMode: await store.get<string>("darkMode"),
-    hideBluetoothExperimental: await store.get<boolean>("hideBluetoothExperimental"),
-    showDefaults: await store.get<boolean>("showDefaults"),
-    autoUpdate: await store.get<boolean>("autoUpdate"),
-    verbose: await store.get<boolean>("verbose"),
-    version: await store.get<string>("version"),
+    settings: {
+      backupFolder: await store.get<string>("backupFolder"),
+      backupFrequency: await store.get<number>("backupFrequency"),
+      language: await store.get<string>("language"),
+      darkMode: await store.get<string>("darkMode"),
+      hideBluetoothExperimental: await store.get<boolean>("hideBluetoothExperimental"),
+      showDefaults: await store.get<boolean>("showDefaults"),
+      autoUpdate: await store.get<boolean>("autoUpdate"),
+      verbose: await store.get<boolean>("verbose"),
+      version: await store.get<string>("version"),
+    },
+    neurons: [] as unknown[]
+    // neurons: await store.get<Neuron[]>("neurons")
   };
 })();
 
@@ -110,7 +115,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [notifyNewVersion, setNotifyNewVersion] = useState(false);
   // TODO: Not sure if this will return that structure
-  const [oldSettings] = useState(oldSettingsInit);
+  const [oldSettings] = useState(oldSettingsInit.settings);
 
   const saveButtonRef = useRef(null);
   const discardChangesButtonRef = useRef(null);
