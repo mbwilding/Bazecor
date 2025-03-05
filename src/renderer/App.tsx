@@ -232,7 +232,8 @@ function App() {
   }, [navigate, state.currentDevice]);
 
   const onKeyboardConnect = async (currentDevice: Device): Promise<void> => {
-    log.log("Connecting to", currentDevice.type, currentDevice.device);
+    // TODO: log.log("Connecting to", currentDevice.type, currentDevice.device);
+    log.log(`Connecting to ${currentDevice.type} | ${currentDevice.device.info.displayName}`);
 
     if (currentDevice.device.bootloader) {
       setConnected(true);
@@ -242,7 +243,7 @@ function App() {
       return;
     }
 
-    log.log("VERSION: ", await currentDevice.command("version"));
+    log.log(`VERSION: ${await currentDevice.command("version")}`);
 
     setConnected(true);
     device.current = currentDevice;
