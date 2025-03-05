@@ -1,6 +1,6 @@
 use anyhow::anyhow;
 use dygma_focus::prelude::*;
-use serde_json::json;
+use log::info;
 use std::sync::Mutex;
 use tauri::{Result, State};
 use tauri_plugin_store::StoreExt;
@@ -94,6 +94,12 @@ fn color_map_set(data: Vec<u8>, storage: State<Storage>) -> Result<()> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .manage(Storage {
+            focus: Default::default(),
+        })
+        .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_store::Builder::default().build())
+        .plugin(tauri_plugin_os::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .format(|out, message, record| {
@@ -107,18 +113,12 @@ pub fn run() {
                 // .level(log::LevelFilter::Debug)
                 .build(),
         )
-        .plugin(tauri_plugin_opener::init())
-        .manage(Storage {
-            focus: Default::default(),
-        })
-        .plugin(tauri_plugin_store::Builder::default().build())
-        .plugin(tauri_plugin_os::init())
         .setup(|app| {
             // Create a new store or load the existing one
             // this also put the store in the app's resource table
             // so your following calls `store` calls (from both rust and js)
             // will reuse the same store
-            // let store = app.store("settings.json")?;
+            let store = app.store("settings.json")?;
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
@@ -133,10 +133,29 @@ pub fn run() {
             // store.set("settings.version", json!(null));
 
             // Get a value from the store.
-            // let dark_mode = store
-            //     .get("settings.darkMode")
-            //     .expect("Failed to get value from store");
-            // println!("{}", dark_mode); // {"settings.darkMode":"system"}
+            let settings_keys = vec![
+                "settings.backupFolder",
+                "settings.backupFrequency",
+                "settings.language",
+                "settings.darkMode",
+                "settings.hideBluetoothExperimental",
+                "settings.showDefaults",
+                "settings.autoUpdate",
+                "settings.verbose",
+                "settings.version",
+                // "neurons",
+            ];
+
+            info!("Begin settings dump");
+
+            for key in settings_keys {
+                let value = store
+                    .get(key)
+                    .expect(&format!("Failed to get value for key {}", key));
+                info!("{}: {}", key, value);
+            }
+
+            info!("End settings dump");
 
             // Remove the store from the resource table
             // store.close_resource();
