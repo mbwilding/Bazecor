@@ -117,25 +117,25 @@ pub fn run() {
             // this also put the store in the app's resource table
             // so your following calls `store` calls (from both rust and js)
             // will reuse the same store
-            let store = app.store("store.json")?;
+            let store = app.store("settings.json")?;
 
             // Note that values must be serde_json::Value instances,
             // otherwise, they will not be compatible with the JavaScript bindings.
-            store.set("backupFolder", json!(""));
-            store.set("backupFrequency", json!(0));
-            store.set("language", json!("english"));
-            store.set("darkMode", json!("system"));
-            store.set("hideBluetoothExperimental", json!(false));
-            store.set("showDefaults", json!(false));
-            store.set("autoUpdate", json!(null));
-            store.set("verbose", json!(false));
-            store.set("version", json!(null));
+            // store.set("settings.backupFolder", json!(""));
+            // store.set("settings.backupFrequency", json!(0));
+            // store.set("settings.language", json!("english"));
+            // store.set("settings.darkMode", json!("system"));
+            // store.set("settings.hideBluetoothExperimental", json!(false));
+            // store.set("settings.showDefaults", json!(false));
+            // store.set("settings.autoUpdate", json!(null));
+            // store.set("settings.verbose", json!(false));
+            // store.set("settings.version", json!(null));
 
             // Get a value from the store.
-            let dark_mode = store
-                .get("darkMode")
-                .expect("Failed to get value from store");
-            println!("{}", dark_mode); // {"darkMode":"system"}
+            // let dark_mode = store
+            //     .get("settings.darkMode")
+            //     .expect("Failed to get value from store");
+            // println!("{}", dark_mode); // {"settings.darkMode":"system"}
 
             // Remove the store from the resource table
             // store.close_resource();

@@ -12,7 +12,7 @@ const configureNativeTheme = () => {
 
 const setTheme = async () => {
   const store = Store.getStore();
-  let darkMode = await store.get("settings.darkMode");
+  let darkMode = await store.get<string>("settings.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
     await store.set("settings.darkMode", "system");

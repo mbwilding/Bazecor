@@ -131,7 +131,7 @@ function App() {
         setNotifyNewVersion(true);
       }
       let isDark: boolean;
-      const mode = store.get("settings.darkMode") as string;
+      const mode = await store.get<string>("settings.darkMode");
       isDark = mode === "dark";
       if (mode === "system") {
         isDark = await ipcRenderer.invoke("get-NativeTheme");
