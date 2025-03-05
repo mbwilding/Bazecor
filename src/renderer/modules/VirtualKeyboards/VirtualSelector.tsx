@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
-import { ipcRenderer } from "electron";
 import { toast } from "react-toastify";
 import path from "path";
 import fs from "fs";
@@ -93,15 +92,18 @@ export default function VirtualSelector(props: VirtualSelectorProps) {
       }
     });
 
+    // TODO: Save Dialog
+    console.log(`IMPLEMENT: save-dialog`);
     // Ask the user for the place to put the backup
+    // const options = {
+    //   title: i18n.keyboardSelect.virtualKeyboard.newTitle,
+    //   buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
+    //   defaultPath: path.join(store.get("settings.backupFolder") as string, `${fileName}.json`),
+    //   filters: [{ name: "Json", extensions: ["json"] }],
+    // };
+    // const newPath = await ipcRenderer.invoke("save-dialog", options);
+    const newPath = "convertBackupToVK.json";
 
-    const options = {
-      title: i18n.keyboardSelect.virtualKeyboard.newTitle,
-      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
-      defaultPath: path.join(store.get("settings.backupFolder") as string, `${fileName}.json`),
-      filters: [{ name: "Json", extensions: ["json"] }],
-    };
-    const newPath = await ipcRenderer.invoke("save-dialog", options);
     log.info("Save file to", newPath);
     if (newPath === undefined) {
       toast.warning("Path not defined! aborting...", {
@@ -138,16 +140,23 @@ export default function VirtualSelector(props: VirtualSelectorProps) {
   };
 
   const onLoadFile = async () => {
+    // TODO: Save Dialog
+    console.log(`IMPLEMENT: open-dialog`);
     // Read a file that is a backup
-    const options = {
-      title: i18n.keyboardSelect.virtualKeyboard.useTitle,
-      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabel,
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: i18n.dialog.allFiles, extensions: ["*"] },
-      ],
+    // const options = {
+    //   title: i18n.keyboardSelect.virtualKeyboard.useTitle,
+    //   buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabel,
+    //   filters: [
+    //     { name: "Json", extensions: ["json"] },
+    //     { name: i18n.dialog.allFiles, extensions: ["*"] },
+    //   ],
+    // };
+    // const data = await ipcRenderer.invoke("open-dialog", options);
+    const data = {
+      canceled: false,
+      filePaths: ["onLoadFile.json"],
     };
-    const data = await ipcRenderer.invoke("open-dialog", options);
+
     let filePath;
     if (!data.canceled) {
       [filePath] = data.filePaths;
@@ -197,14 +206,18 @@ export default function VirtualSelector(props: VirtualSelectorProps) {
 
   const newFile = async (virtualKeyboard: VirtualType, fileName: string) => {
     const newVK = { ...virtualKeyboard };
+
+    // TODO: Save Dialog
     // Ask the user for the place to put the backup
-    const options = {
-      title: i18n.keyboardSelect.virtualKeyboard.newTitle,
-      buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
-      defaultPath: path.join(store.get("settings.backupFolder") as string, `${fileName}.json`),
-      filters: [{ name: "Json", extensions: ["json"] }],
-    };
-    const newPath = await ipcRenderer.invoke("save-dialog", options);
+    // const options = {
+    //   title: i18n.keyboardSelect.virtualKeyboard.newTitle,
+    //   buttonLabel: i18n.keyboardSelect.virtualKeyboard.buttonLabelSave,
+    //   defaultPath: path.join(store.get("settings.backupFolder") as string, `${fileName}.json`),
+    //   filters: [{ name: "Json", extensions: ["json"] }],
+    // };
+    // const newPath = await ipcRenderer.invoke("save-dialog", options);
+    const newPath = "newFile.json";
+
     log.info("Save file to", newPath);
     if (newPath === undefined) {
       toast.warning("Path not defined! aborting...");

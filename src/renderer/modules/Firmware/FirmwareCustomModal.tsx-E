@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-// import { ipcRenderer } from "electron";
+import { ipcRenderer } from "electron";
 
-const log = console;
+import log from "electron-log";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Heading from "@Renderer/components/atoms/Heading";
@@ -132,18 +132,12 @@ export default function FirmwareCustomModal(props: FirmwareCustomModalProps) {
                 variant="short"
                 onClick={async () => {
                   // Read a file that is a backup
-                  console.log("IMPLEMENT: Open Dialog");
-                  // const options = {
-                  //   title: "Select folder with custom firmware",
-                  //   buttonLabel: "Select",
-                  //   properties: ["openDirectory"],
-                  // };
-                  // const folder = (await ipcRenderer.invoke("open-dialog", options)) as Electron.OpenDialogReturnValue;
-                  const folder = {
-                    canceled: false,
-                    filePaths: ["customFirmware"]
-                  }
-
+                  const options = {
+                    title: "Select folder with custom firmware",
+                    buttonLabel: "Select",
+                    properties: ["openDirectory"],
+                  };
+                  const folder = (await ipcRenderer.invoke("open-dialog", options)) as Electron.OpenDialogReturnValue;
                   log.info("received folder: ", folder);
                   if (!folder.canceled) {
                     setCustomFolder(folder.filePaths[0]);

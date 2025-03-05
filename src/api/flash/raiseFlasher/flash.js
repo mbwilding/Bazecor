@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import fs from "fs";
 import path from "path";
 const log = console;
@@ -151,7 +151,10 @@ export class FlashRaise {
    * linux: in directory, where the app is located.
    */
   async saveBackupFile() {
-    const userDataPath = await ipcRenderer.invoke("get-userPath", "userData");
+    console.log("IMPLEMENT: User Data");
+    // const userDataPath = await ipcRenderer.invoke("get-userPath", "userData");
+    const userDataPath = "userData"
+
     const route = path.join(userDataPath, this.backupFileName + ".json");
     log.info("saving file to: " + route);
     fs.writeFile(route, JSON.stringify(this.backupFileData), err => {

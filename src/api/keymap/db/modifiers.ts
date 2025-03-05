@@ -41,10 +41,15 @@ const AltVerboses: { [key: string]: string } = {
   darwin: "Option",
 };
 
-const guiLabel = GuiLabels[process.platform] || "Gui";
-const guiVerbose = GuiVerboses[process.platform] || "Gui";
-const AltLabel = AltLabels[process.platform] || "ALT";
-const AltVerbose = AltVerboses[process.platform] || "Alt";
+console.log("IMPLEMENT: process.platform for key labels");
+// const guiLabel = GuiLabels[process.platform] || "Gui";
+// const guiVerbose = GuiVerboses[process.platform] || "Gui";
+// const AltLabel = AltLabels[process.platform] || "ALT";
+// const AltVerbose = AltVerboses[process.platform] || "Alt";
+const guiLabel = "Gui";
+const guiVerbose = "Gui";
+const AltLabel = "ALT";
+const AltVerbose = "Alt";
 
 const ModifiersTable = {
   groupName: "Modifiers",

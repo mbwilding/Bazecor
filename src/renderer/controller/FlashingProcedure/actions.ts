@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 const log = console;
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { SerialPort } from "serialport";
 import { DeviceTools } from "@Renderer/DeviceContext";
 import { BackupType } from "@Renderer/types/backups";
@@ -198,7 +198,11 @@ export const uploadDefyWired = async (context: Context.ContextType) => {
     stateUpdate("neuron", 10, context);
     await context.flashSides.prepareNeuron();
     stateUpdate("neuron", 30, context);
-    const rsl = await ipcRenderer.invoke("list-drives", true);
+
+    console.log("IMPLEMENT: List Drives");
+    // const rsl = await ipcRenderer.invoke("list-drives", true);
+    const rsl = "uploadDefyWired";
+
     stateUpdate("neuron", 60, context);
     const finalPath = path.join(rsl, "default.uf2");
     // log.info("RESULTS!!!", rsl, new Uint8Array(context.firmwares.fw), " to ", finalPath);

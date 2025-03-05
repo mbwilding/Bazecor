@@ -20,7 +20,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
 const log = console;
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import fs from "fs";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@Renderer/components/atoms/Select";
@@ -530,16 +530,21 @@ function MacroEditor(props: MacroEditorProps) {
   };
 
   const importMacro = async () => {
-    const options = {
-      title: "Import Macro",
-      buttonLabel: "Import Macro",
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] },
-      ],
-    };
+    console.log("IMPLEMENT: Open Dialog");
+    // const options = {
+    //   title: "Import Macro",
+    //   buttonLabel: "Import Macro",
+    //   filters: [
+    //     { name: "Json", extensions: ["json"] },
+    //     { name: "All Files", extensions: ["*"] },
+    //   ],
+    // };
+    // const resp = await ipcRenderer.invoke("open-dialog", options);
+    const resp = {
+      canceled: false,
+      filePaths: ["importMacro.json"]
+    }
 
-    const resp = await ipcRenderer.invoke("open-dialog", options);
     if (!resp.canceled) {
       // log.info(resp.filePaths);
       try {
@@ -578,6 +583,8 @@ function MacroEditor(props: MacroEditorProps) {
   const exportMacro = async () => {
     const { macros, selectedMacro } = state;
     const data = JSON.stringify(macros[selectedMacro]);
+
+    console.log("IMPLEMENT: Save Dialog");
     const options = {
       title: "Export Macro",
       defaultPath: `Macro${selectedMacro + 1}-${macros[selectedMacro].name}.json`,
@@ -589,7 +596,9 @@ function MacroEditor(props: MacroEditorProps) {
     };
 
     try {
-      const path = await ipcRenderer.invoke("save-dialog", options);
+      // const path = await ipcRenderer.invoke("save-dialog", options);
+      const path = `Macro${selectedMacro + 1}-${macros[selectedMacro].name}.json`;
+
       if (typeof path !== "undefined") {
         log.info("path & data to export to: ", path, data);
         fs.writeFileSync(path, data);

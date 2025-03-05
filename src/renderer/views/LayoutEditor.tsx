@@ -22,7 +22,7 @@ import React, { MouseEvent, useCallback, useEffect, useMemo, useState, useRef } 
 import Styled from "styled-components";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import fs from "fs";
 const log = console;
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@Renderer/components/atoms/Dialog";
@@ -1287,16 +1287,21 @@ const LayoutEditor = (props: LayoutEditorProps) => {
   };
 
   const toImport = async () => {
-    const options = {
-      title: "Load Layer/s file",
-      buttonLabel: "Load Layer/s",
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] },
-      ],
-    };
+    console.log("IMPLEMENT: Open Dialog");
+    // const options = {
+    //   title: "Load Layer/s file",
+    //   buttonLabel: "Load Layer/s",
+    //   filters: [
+    //     { name: "Json", extensions: ["json"] },
+    //     { name: "All Files", extensions: ["*"] },
+    //   ],
+    // };
+    // const resp = await ipcRenderer.invoke("open-dialog", options);
+    const resp = {
+      canceled: false,
+      filePaths: ["layers.json"]
+    }
 
-    const resp = await ipcRenderer.invoke("open-dialog", options);
     if (!resp.canceled) {
       // log.info(resp.filePaths);
       let layers;
@@ -1373,18 +1378,22 @@ const LayoutEditor = (props: LayoutEditorProps) => {
       null,
       2,
     );
-    const options = {
-      title: "Save Layer file",
-      defaultPath: `${layerNames[currentLayer].name}.json`,
-      buttonLabel: "Save Layer",
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] },
-      ],
-    };
+
+    console.log("IMPLEMENT: Open Dialog");
+    // const options = {
+    //   title: "Save Layer file",
+    //   defaultPath: `${layerNames[currentLayer].name}.json`,
+    //   buttonLabel: "Save Layer",
+    //   filters: [
+    //     { name: "Json", extensions: ["json"] },
+    //     { name: "All Files", extensions: ["*"] },
+    //   ],
+    // };
 
     try {
-      const path = await ipcRenderer.invoke("save-dialog", options);
+      // const path = await ipcRenderer.invoke("save-dialog", options);
+      const path = `${layerNames[currentLayer].name}.json`;
+
       if (typeof path !== "undefined") {
         log.info("path & data to export to: ", path, data);
         fs.writeFileSync(path, data);
@@ -1499,7 +1508,7 @@ const LayoutEditor = (props: LayoutEditorProps) => {
     // log.info("going to RUN INITIAL USE EFFECT just ONCE");
     const scanner = async () => {
       await scanKeyboard(currentLanguageLayout);
-      const newLanguage = getLanguage(store.get("settings.language") as string);
+      const newLanguage = getLanguage(await store.get("settings.language") as string);
       log.info("Language automatically set to: ", newLanguage);
       setCurrentLanguageLayout(newLanguage || "english");
       setLoading(false);

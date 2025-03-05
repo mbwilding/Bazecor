@@ -17,7 +17,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from "react";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { motion } from "framer-motion";
 const log = console;
 import { toast } from "react-toastify";
@@ -490,7 +490,8 @@ const Preferences = (props: PreferencesProps) => {
 
   const onChangeDevTools = async (checked: boolean) => {
     try {
-      await ipcRenderer.invoke("manage-devtools", checked);
+      console.log("IMPLEMENT: Manage DevTools")
+      // await ipcRenderer.invoke("manage-devtools", checked);
       setPreferencesState(prevState => ({
         ...prevState,
         devTools: checked,
@@ -510,7 +511,8 @@ const Preferences = (props: PreferencesProps) => {
 
   const onChangeVerbose = () => {
     setPreferencesState(prevState => {
-      log.transports.console.level = !prevState.verbose ? "verbose" : "info";
+      console.log("IMPLEMENT: Log Level Changer");
+      // log.transports.console.level = !prevState.verbose ? "verbose" : "info";
       store.set("settings.verbose", !prevState.verbose);
       return {
         ...prevState,
@@ -607,12 +609,15 @@ const Preferences = (props: PreferencesProps) => {
       const NID = await getNeuronData();
       if (connected && (state.currentDevice.device.info.keyboardType === "wireless" || state.currentDevice.device.wireless))
         await getWirelessPreferences();
-      const devTools = await ipcRenderer.invoke("is-devtools-opened");
-      let darkMode = store.get("settings.darkMode") as string;
-      if (!darkMode) {
-        darkMode = "system";
-      }
-      const verbose = store.get("settings.verbose") as boolean;
+
+      console.log("IMPLEMENT: Is DevTools Opened");
+      // const devTools = await ipcRenderer.invoke("is-devtools-opened");
+      // let darkMode = store.get("settings.darkMode") as string;
+      // if (!darkMode) {
+      //   darkMode = "system";
+      // }
+
+      // const verbose = store.get("settings.verbose") as boolean;
       setPreferencesState(prevPreferencesState => ({
         ...prevPreferencesState,
         devTools,
@@ -621,16 +626,18 @@ const Preferences = (props: PreferencesProps) => {
         selectedNeuron: prevPreferencesState.neurons.indexOf(prevPreferencesState.neurons.find((x: Neuron) => x.id === NID)),
       }));
 
-      ipcRenderer.on("opened-devtool", openDevTool);
-      ipcRenderer.on("closed-devtool", closeDevTool);
+      console.log("IMPLEMENT: Is DevTools Opened/Closed");
+      // ipcRenderer.on("opened-devtool", openDevTool);
+      // ipcRenderer.on("closed-devtool", closeDevTool);
       setLocalLoading(false);
       setModified(false);
       setLoading(false);
     };
     init();
     return () => {
-      ipcRenderer.off("opened-devtool", openDevTool);
-      ipcRenderer.off("close-devtool", closeDevTool);
+      console.log("IMPLEMENT: Is DevTools Opened/Closed");
+      // ipcRenderer.off("opened-devtool", openDevTool);
+      // ipcRenderer.off("close-devtool", closeDevTool);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

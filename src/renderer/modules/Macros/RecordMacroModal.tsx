@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 const log = console;
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { i18n } from "@Renderer/i18n";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@Renderer/components/atoms/Dialog";
@@ -105,8 +105,11 @@ const RecordMacroModal = (props: Props) => {
   );
 
   useEffect(() => {
-    ipcRenderer.on("recorded-key-down", recordKeyDown);
-    ipcRenderer.on("recorded-key-up", recordKeyUp);
+    console.log("IMPLEMENT: Recorded Key Down/Up")
+    // ipcRenderer.on("recorded-key-down", recordKeyDown);
+    // ipcRenderer.on("recorded-key-up", recordKeyUp);
+
+    // Was already commented out
     // ipcRenderer.on("recorded-mouse-move", (event, response) => {
     //   log.info(response);
     // });
@@ -118,8 +121,11 @@ const RecordMacroModal = (props: Props) => {
     // });
 
     return () => {
-      ipcRenderer.off("recorded-key-down", recordKeyDown);
-      ipcRenderer.off("recorded-key-up", recordKeyUp);
+      console.log("IMPLEMENT: Recorded Key Down/Up");
+      // ipcRenderer.off("recorded-key-down", recordKeyDown);
+      // ipcRenderer.off("recorded-key-up", recordKeyUp);
+
+      // Was already commented out
       // ipcRenderer.removeAllListeners("recorded-mouse-move");
       // ipcRenderer.removeAllListeners("recorded-mouse-click");
       // ipcRenderer.removeAllListeners("recorded-mouse-wheel");
@@ -166,15 +172,17 @@ const RecordMacroModal = (props: Props) => {
     if (buttonRecord.current && buttonRecord.current instanceof HTMLButtonElement) {
       buttonRecord.current.blur();
     }
-    const isAccessible = await ipcRenderer.invoke("ask-for-accessibility", "");
-    if (!isAccessible) {
-      return;
-    }
-    if (!isRecording) {
-      ipcRenderer.send("start-recording", "");
-    } else {
-      ipcRenderer.send("stop-recording", "");
-    }
+
+    console.log("IMPLEMENT: Ask For Accessibility");
+    // const isAccessible = await ipcRenderer.invoke("ask-for-accessibility", "");
+    // if (!isAccessible) {
+    //   return;
+    // }
+    // if (!isRecording) {
+    //   ipcRenderer.send("start-recording", "");
+    // } else {
+    //   ipcRenderer.send("stop-recording", "");
+    // }
     setRecordingState(!isRecording);
   };
 
@@ -220,7 +228,8 @@ const RecordMacroModal = (props: Props) => {
 
   const sendMacro = () => {
     if (isRecording) {
-      ipcRenderer.send("stop-recording", "");
+      console.log("IMPLEMENT: Stop Recording");
+      // ipcRenderer.send("stop-recording", "");
     }
     onAddRecorded(cleanRecorded(recording.current));
     recording.current = [];

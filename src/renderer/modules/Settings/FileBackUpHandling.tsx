@@ -15,7 +15,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { toast } from "react-toastify";
 
 // React Bootstrap Components
@@ -38,8 +38,12 @@ const FileBackUpHandling = () => {
   const [backupFolder, setBackupFolder] = useState("");
   const [storeBackups, setStoreBackups] = useState(13);
   useEffect(() => {
-    const freq = store.get("settings.backupFrequency") as number;
-    setBackupFolder(store.get("settings.backupFolder") as string);
+    console.log("IMPLEMENT: Store Get");
+    // const freq = store.get<number>("settings.backupFrequency");
+    console.log("IMPLEMENT: Store Get");
+    // setBackupFolder(store.get<string>("settings.backupFolder"));
+    let freq = 0;
+
     if (freq === 0) {
       setStoreBackups(13);
       store.set("settings.backupFrequency", 13);
@@ -49,13 +53,17 @@ const FileBackUpHandling = () => {
   }, []);
 
   const ChooseBackupFolder = async () => {
-    const options = {
-      title: i18n.keyboardSettings.backupFolder.title,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
-      properties: ["openDirectory"],
-    };
-
-    const resp = await ipcRenderer.invoke("open-dialog", options);
+    console.log("IMPLEMENT: Open Dialog - ChooseBackupFolder");
+    // const options = {
+    //   title: i18n.keyboardSettings.backupFolder.title,
+    //   buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+    //   properties: ["openDirectory"],
+    // };
+    // const resp = await ipcRenderer.invoke("open-dialog", options);
+    let resp = {
+      canceled: false,
+      filePaths: ["ChooseBackupFolder"]
+    }
 
     if (!resp.canceled) {
       // log.info(resp.filePaths);

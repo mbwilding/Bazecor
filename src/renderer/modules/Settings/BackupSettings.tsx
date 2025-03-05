@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { toast } from "react-toastify";
 import fs from "fs";
 const log = console;
@@ -51,7 +51,8 @@ const BackupSettings = (props: BackupSettingsProps) => {
 
   const { connected, neurons, neuronID, toggleBackup, destroyContext, enabled } = props;
   useEffect(() => {
-    setBackupFolder(store.get("settings.backupFolder") as string);
+    console.log("IMPLEMENT: Backup Folder");
+    // setBackupFolder(await store.get<string>("settings.backupFolder"));
   }, []);
 
   const openPerformingBackup = () => {
@@ -115,17 +116,22 @@ const BackupSettings = (props: BackupSettingsProps) => {
   };
 
   const GetBackup = async () => {
-    const options = {
-      title: i18n.keyboardSettings.backupFolder.restoreTitle,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowRestore,
-      defaultPath: backupFolder,
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: i18n.dialog.allFiles, extensions: ["*"] },
-      ],
-    };
+    console.log("IMPLEMENT: Open Dialog");
+    // const options = {
+    //   title: i18n.keyboardSettings.backupFolder.restoreTitle,
+    //   buttonLabel: i18n.keyboardSettings.backupFolder.windowRestore,
+    //   defaultPath: backupFolder,
+    //   filters: [
+    //     { name: "Json", extensions: ["json"] },
+    //     { name: i18n.dialog.allFiles, extensions: ["*"] },
+    //   ],
+    // };
 
-    const resp = await ipcRenderer.invoke("open-dialog", options);
+    // const resp = await ipcRenderer.invoke("open-dialog", options);
+    const resp = {
+      canceled: false,
+      filePaths: [backupFolder]
+    }
 
     if (!resp.canceled) {
       log.info(resp.filePaths);
