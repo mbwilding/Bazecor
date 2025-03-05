@@ -112,6 +112,7 @@ pub fn run() {
             focus: Default::default(),
         })
         .plugin(tauri_plugin_store::Builder::default().build())
+        .plugin(tauri_plugin_os::init())
         .setup(|app| {
             // Create a new store or load the existing one
             // this also put the store in the app's resource table
