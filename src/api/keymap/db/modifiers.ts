@@ -42,7 +42,6 @@ const AltVerboses: { [key: string]: string } = {
   macos: "Option",
 };
 
-
 const plat = platform();
 const guiLabel = GuiLabels[plat] || "Gui";
 const guiVerbose = GuiVerboses[plat] || "Gui";
