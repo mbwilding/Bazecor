@@ -16,7 +16,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Octokit } from "@octokit/core";
+import { Octokit } from "@octokit-next/core";
 const log = console;
 import SemVer from "semver";
 import parse, { domToReact } from "html-react-parser";

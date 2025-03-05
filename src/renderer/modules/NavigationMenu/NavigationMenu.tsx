@@ -22,7 +22,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 const log = console;
-import { Octokit } from "@octokit/core";
+import { Octokit } from "@octokit-next/core";
 import SemVer from "semver";
 
 import DygmaLogo from "@Assets/logo.svg";

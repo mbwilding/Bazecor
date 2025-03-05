@@ -1,4 +1,4 @@
-import { Octokit } from "@octokit/core";
+import { Octokit } from "@octokit-next/core";
 import axios from "axios";
 import SemVer from "semver";
 const log = console;
