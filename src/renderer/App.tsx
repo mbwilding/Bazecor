@@ -86,15 +86,15 @@ interface TauriSettings {
 let oldSettingsInit: StorageType = await (async () => {
   return {
     settings: {
-      backupFolder: await store.get<string>("backupFolder"),
-      backupFrequency: await store.get<number>("backupFrequency"),
-      language: await store.get<string>("language"),
-      darkMode: await store.get<string>("darkMode"),
-      hideBluetoothExperimental: await store.get<boolean>("hideBluetoothExperimental"),
-      showDefaults: await store.get<boolean>("showDefaults"),
-      autoUpdate: await store.get<boolean>("autoUpdate"),
-      verbose: await store.get<boolean>("verbose"),
-      version: await store.get<string>("version"),
+      backupFolder: await store.get<string>("settings.backupFolder"),
+      backupFrequency: await store.get<number>("settings.backupFrequency"),
+      language: await store.get<string>("settings.language"),
+      darkMode: await store.get<string>("settings.darkMode"),
+      hideBluetoothExperimental: await store.get<boolean>("settings.hideBluetoothExperimental"),
+      showDefaults: await store.get<boolean>("settings.showDefaults"),
+      autoUpdate: await store.get<boolean>("settings.autoUpdate"),
+      verbose: await store.get<boolean>("settings.verbose"),
+      version: await store.get<string>("settings.version"),
     },
     neurons: [] as unknown[]
     // neurons: await store.get<Neuron[]>("neurons")
