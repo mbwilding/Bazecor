@@ -13,7 +13,7 @@ export function setAllowedRetries(newRetryCount: number): void {
 }
 
 export async function listDrivesHandler(event: unknown, args: unknown): Promise<string> {
-  log.verbose("listing drives: ", event, args);
+  log.log("listing drives: ", event, args);
   // Special value: -2 means unlimited retries
   let retries = allowedRetryCount; // Note: Unlimited retries is the current behaviour
   while (retries === -2 || retries > 0) {

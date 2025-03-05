@@ -73,8 +73,8 @@ describe("findDevices", () => {
     expect(log.info).toHaveBeenCalledWith("Going to list devices for type: serial");
     expect(log.info).toHaveBeenCalledWith("keyboard detected", undefined);
 
-    expect(log.verbose).toHaveBeenCalledTimes(1);
-    expect(log.verbose).toHaveBeenCalledWith("List of Devices: ", []);
+    expect(log.log).toHaveBeenCalledTimes(1);
+    expect(log.log).toHaveBeenCalledWith("List of Devices: ", []);
   });
 
   it("should find a device", async () => {
@@ -92,8 +92,8 @@ describe("findDevices", () => {
     expect(log.info).toHaveBeenCalledWith("Bootloader - Lookup: false & HW: undefined | KBType - Lookup: wired & HW: wired");
     expect(log.info).toHaveBeenCalledWith("keyboard detected", connectedDevices[0]);
 
-    expect(log.verbose).toHaveBeenCalledTimes(1);
-    expect(log.verbose).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
+    expect(log.log).toHaveBeenCalledTimes(1);
+    expect(log.log).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
   });
 
   it("should find a wireless device", async () => {
@@ -111,8 +111,8 @@ describe("findDevices", () => {
     expect(log.info).toHaveBeenCalledWith("Bootloader - Lookup: false & HW: false | KBType - Lookup: ANSI & HW: ANSI");
     expect(log.info).toHaveBeenCalledWith("keyboard detected", connectedDevices[2]);
 
-    expect(log.verbose).toHaveBeenCalledTimes(1);
-    expect(log.verbose).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
+    expect(log.log).toHaveBeenCalledTimes(1);
+    expect(log.log).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
   });
 
   it("should finds a bootloader", async () => {
@@ -134,7 +134,7 @@ describe("findDevices", () => {
     expect(log.info).toHaveBeenCalledWith("Bootloader - Lookup: true & HW: true | KBType - Lookup: wired & HW: wired");
     expect(log.info).toHaveBeenCalledWith("bootloader detected", connectedDevices[1]);
 
-    expect(log.verbose).toHaveBeenCalledTimes(1);
-    expect(log.verbose).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
+    expect(log.log).toHaveBeenCalledTimes(1);
+    expect(log.log).toHaveBeenCalledWith("List of Devices: ", connectedDevices);
   });
 });

@@ -58,7 +58,7 @@ const installUdev = (mainWindow: BrowserWindow) => {
         options,
         error => {
           if (error !== null) {
-            log.verbose(`stdout: ${error.message}`);
+            log.log(`stdout: ${error.message}`);
             const errorOpts: MessageBoxOptions = {
               type: "error",
               buttons: ["Ok"],

@@ -5,9 +5,9 @@ const setDevTools = async () => {
     try {
       const devTools = await import("electron-devtools-installer");
       const extensionLoaded = await devTools.default(devTools.REACT_DEVELOPER_TOOLS);
-      log.verbose(`Extension loaded ${extensionLoaded}`);
+      log.log(`Extension loaded ${extensionLoaded}`);
     } catch (err) {
-      log.verbose("Error while loading dev tools: ", err);
+      log.log("Error while loading dev tools: ", err);
     }
   }
 };

@@ -24,7 +24,7 @@ class HIDConnectedDeviceComms implements ConnectedDeviceComms {
   /* eslint-disable */
   // README!! we need to disable eslint because we do not have implemented raw send over HID so it complains otherwise
   sendRawData = async (data: string, receiverHandler: ConnnectedDeviceCommsHandler, errorHandler: ErrorHandler) => {
-    log.verbose("Raw data send on HID not supported yet");
+    log.log("Raw data send on HID not supported yet");
     throw new HIDConnectedDeviceCommsError("Raw data not supported on HID yet");
   };
   /* eslint-enable */

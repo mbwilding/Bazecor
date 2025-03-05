@@ -32,7 +32,7 @@ function deleteOldFiles(backupPath: string, period: number) {
       if (monthsDifference >= period) {
         // Delete the file
         fs.unlinkSync(filePath);
-        log.verbose(`Deleted file: ${filePath}`);
+        log.log(`Deleted file: ${filePath}`);
       }
     }
   }
@@ -42,20 +42,20 @@ const setBackup = () => {
   const store = Store.getStore();
   const bfolder = store.get("settings.backupFolder") as string;
   const bfrequency = store.get("settings.backupFrequency") as number;
-  log.verbose("** Checking backup folder value **");
-  log.verbose(bfolder);
+  log.log("** Checking backup folder value **");
+  log.log(bfolder);
   if (bfolder === "" || bfolder === undefined) {
     const defaultPath = path.join(app.getPath("home"), "Dygma", "Backups");
-    log.verbose(defaultPath);
+    log.log(defaultPath);
     store.set("settings.backupFolder", defaultPath);
     fs.mkdir(defaultPath, { recursive: true }, err => {
       if (err) {
         log.error(err);
       }
-      log.verbose("Directory created successfully!");
+      log.log("Directory created successfully!");
     });
   } else if (bfrequency > 0 && bfrequency < 13) {
-    log.verbose(`** Going to erase backups older than: ${bfrequency} months **`);
+    log.log(`** Going to erase backups older than: ${bfrequency} months **`);
     deleteOldFiles(bfolder, bfrequency);
   }
 };

@@ -20,7 +20,7 @@ export const findDevice = async (
 
   const isBootloader = deviceType === "bootloader";
   const hwDevices: ExtendedPort[] = (await DeviceTools.enumerateSerial(isBootloader)).foundDevices;
-  log.verbose("List of Devices: ", hwDevices);
+  log.log("List of Devices: ", hwDevices);
 
   const matchingDevice: ExtendedPort = hwDevices.find(hwDevice =>
     lookupDevices.some(lookupDevice => {

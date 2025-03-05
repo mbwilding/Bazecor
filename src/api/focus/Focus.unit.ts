@@ -185,7 +185,7 @@ describe.skip("Focus", () => {
 
   //     expect(log.error).toHaveBeenCalledTimes(0);
   //     expect(log.warn).toHaveBeenCalledTimes(0);
-  //     expect(log.verbose).toHaveBeenCalledTimes(0);
+  //     expect(log.log).toHaveBeenCalledTimes(0);
   //     expect(log.debug).toHaveBeenCalledTimes(0);
   //     expect(log.silly).toHaveBeenCalledTimes(0);
   //   });
@@ -260,7 +260,7 @@ describe.skip("Focus", () => {
   //     expect(log.error).toHaveBeenCalledTimes(1);
   //     expect(log.error).toHaveBeenCalledWith("found this error while opening!", new Error("device not a string or object!"));
   //     expect(log.warn).toHaveBeenCalledTimes(0);
-  //     expect(log.verbose).toHaveBeenCalledTimes(0);
+  //     expect(log.log).toHaveBeenCalledTimes(0);
   //     expect(log.debug).toHaveBeenCalledTimes(0);
   //     expect(log.silly).toHaveBeenCalledTimes(0);
   //   });
@@ -357,7 +357,7 @@ describe.skip("Focus", () => {
   //       expect(log.error).toHaveBeenCalledWith("error when opening port: ", new Error("cannot open"));
 
   //       expect(log.warn).toHaveBeenCalledTimes(0);
-  //       expect(log.verbose).toHaveBeenCalledTimes(0);
+  //       expect(log.log).toHaveBeenCalledTimes(0);
   //       expect(log.debug).toHaveBeenCalledTimes(0);
   //       expect(log.silly).toHaveBeenCalledTimes(0);
   //     },

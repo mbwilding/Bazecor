@@ -16,7 +16,7 @@ class DeviceTalker {
   static connect = async (device: unknown) => {
     if (isSerialType(device)) {
       const result = await serial.connect(device);
-      log.verbose(`the device is ${device.type} type, and connected as: ${result}`);
+      log.log(`the device is ${device.type} type, and connected as: ${result}`);
       return result;
     }
     return hid.connect(device);

@@ -25,7 +25,7 @@ const configureIPCs = () => {
   const globalRecording = GlobalRecording.getInstance();
 
   ipcMain.on("start-recording", () => {
-    log.verbose("start-recording");
+    log.log("start-recording");
     globalRecording.setRecording(true);
     uIOhook.on("keydown", sendkeyDown);
     uIOhook.on("keyup", sendKeyUp);
@@ -33,7 +33,7 @@ const configureIPCs = () => {
   });
 
   ipcMain.on("stop-recording", () => {
-    log.verbose("stop-recording");
+    log.log("stop-recording");
     globalRecording.setRecording(false);
     uIOhook.off("keydown", sendkeyDown);
     uIOhook.off("keyup", sendKeyUp);
@@ -84,12 +84,12 @@ const configureIPCs = () => {
   ipcMain.handle("get-NativeTheme", () => nativeTheme.shouldUseDarkColors);
 
   ipcMain.handle("ask-for-accessibility", async () => {
-    log.verbose("someone asked for accessibility", process.platform);
+    log.log("someone asked for accessibility", process.platform);
     if (process.platform !== "darwin") {
       return true;
     }
     const isTrusted = systemPreferences.isTrustedAccessibilityClient(false);
-    log.verbose("isTrustedAccessibilityClient", isTrusted);
+    log.log("isTrustedAccessibilityClient", isTrusted);
     if (isTrusted) {
       return true;
     }
@@ -102,7 +102,7 @@ const configureIPCs = () => {
       cancelId: 0,
       buttons: ["Not Now", "Turn On Accessibility"],
     });
-    log.verbose("checking return value: ", clickedButton);
+    log.log("checking return value: ", clickedButton);
     if (clickedButton.response === 1) {
       // Calling isTrustedAccessibilityClient with prompt=true has the side effect
       // of showing the native dialog that either denies access or opens System

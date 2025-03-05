@@ -48,30 +48,21 @@ try {
     <ErrorBoundary>
       <MemoryRouter>
         <DeviceProvider>
-          <div>TEST</div>
+          <App />
+          <ToastContainer
+            position="top-right"
+            autoClose={false}
+            hideProgressBar={false}
+            newestOnTop={false}
+            draggable={false}
+            closeOnClick
+            pauseOnHover
+            pauseOnFocusLoss
+          />
         </DeviceProvider>
       </MemoryRouter>
-    </ErrorBoundary>
+    </ErrorBoundary>,
   );
-  // root.render(
-  //   <ErrorBoundary>
-  //     <MemoryRouter>
-  //       <DeviceProvider>
-  //         <App />
-  //         <ToastContainer
-  //           position="top-right"
-  //           autoClose={false}
-  //           hideProgressBar={false}
-  //           newestOnTop={false}
-  //           draggable={false}
-  //           closeOnClick
-  //           pauseOnHover
-  //           pauseOnFocusLoss
-  //         />
-  //       </DeviceProvider>
-  //     </MemoryRouter>
-  //   </ErrorBoundary>,
-  // );
 } catch (e) {
   root.render(<Error error={e} />);
 }

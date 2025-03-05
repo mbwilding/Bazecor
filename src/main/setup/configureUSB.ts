@@ -34,9 +34,9 @@ export const onUSBDisconnect = async (event: USBConnectionEvent) => {
     const vendorID = device.vendorId;
     const productID = device.productId;
     if (dygmaVendorIDs.includes(vendorID)) {
-      log.verbose("Dygma Device USB Disconnection detected");
-      log.verbose("VendorID", vendorID);
-      log.verbose("ProductID", productID);
+      log.log("Dygma Device USB Disconnection detected");
+      log.log("VendorID", vendorID);
+      log.log("ProductID", productID);
       sendToRenderer("usb-disconnected", JSON.stringify(device));
     }
   }
@@ -47,22 +47,22 @@ export const onUSBConnect = (event: USBConnectionEvent) => {
     const vendorID = device.vendorId;
     const productID = device.productId;
     if (dygmaVendorIDs.includes(vendorID)) {
-      log.verbose("Dygma Device USB Connection detected");
-      log.verbose("VendorID", vendorID);
-      log.verbose("ProductID", productID);
+      log.log("Dygma Device USB Connection detected");
+      log.log("VendorID", vendorID);
+      log.log("ProductID", productID);
       sendToRenderer("usb-connected", JSON.stringify(device));
     }
   }
 };
 
 export const addUSBListeners = () => {
-  log.verbose("adding USB Listeners");
+  log.log("adding USB Listeners");
   webusb.addEventListener("connect", onUSBConnect);
   webusb.addEventListener("disconnect", onUSBDisconnect);
 };
 
 export const removeUSBListeners = () => {
-  log.verbose("removing USB Listeners");
+  log.log("removing USB Listeners");
   webusb.removeEventListener("connect", onUSBConnect);
   webusb.removeEventListener("disconnect", onUSBDisconnect);
   ipcMain.removeHandler("usb-devices");

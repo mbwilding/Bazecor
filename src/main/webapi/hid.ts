@@ -27,21 +27,21 @@ export const configureHID = () => {
     event.preventDefault();
 
     window.webContents.session.on("hid-device-added", (added_device_event, device) => {
-      log.verbose("hid-device-added FIRED WITH", device);
+      log.log("hid-device-added FIRED WITH", device);
       // Optionally update details.deviceList
     });
 
     window.webContents.session.on("hid-device-removed", (removed_device_event, device) => {
-      log.verbose("hid-device-removed FIRED WITH", device);
+      log.log("hid-device-removed FIRED WITH", device);
       log.warn("hid-device-removed FIREEEEEED", device);
     });
 
     if (details.deviceList && details.deviceList.length > 0) {
-      log.verbose(details.deviceList);
+      log.log(details.deviceList);
       const filteredDevices = details.deviceList.filter(
         device => [18, 33].includes(device.productId) && device.vendorId === 13807,
       );
-      log.verbose(filteredDevices);
+      log.log(filteredDevices);
       if (filteredDevices.length > 0) {
         callback(filteredDevices[0].deviceId);
       }

@@ -3,13 +3,13 @@ import Window from "../managers/Window";
 import sendToRenderer from "../utils/sendToRenderer";
 
 const onDeviceAdded = (added_device_event: any, device: any) => {
-  log.verbose("hid-device-added FIRED WITH", device.device);
+  log.log("hid-device-added FIRED WITH", device.device);
   // Optionally update details.deviceList
   if (device.device.vendorId === 13807) sendToRenderer("hid-connected", JSON.stringify(device.device));
 };
 
 const onDeviceRemove = (removed_device_event: any, device: any) => {
-  log.verbose("hid-device-removed FIRED WITH", device.device);
+  log.log("hid-device-removed FIRED WITH", device.device);
   if (device.device.vendorId === 13807) sendToRenderer("hid-disconnected", JSON.stringify(device.device));
 };
 
@@ -23,8 +23,8 @@ const onDeviceSelect = (event: Event, details: any, callback: any) => {
     const filteredDevices = details.deviceList.filter(
       (device: any) => [18, 33].includes(device.productId) && device.vendorId === 13807,
     );
-    log.verbose("Filtered list");
-    log.verbose(filteredDevices);
+    log.log("Filtered list");
+    log.log(filteredDevices);
     if (filteredDevices.length > 0) {
       callback(filteredDevices[0].deviceId);
     } else {
@@ -36,7 +36,7 @@ const onDeviceSelect = (event: Event, details: any, callback: any) => {
 export const configureHID = () => {
   const window = Window.getWindow();
   window.webContents.session.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {
-    log.verbose("hid configuration", permission, details);
+    log.log("hid configuration", permission, details);
     if (permission === "hid") {
       return true;
     }
@@ -44,7 +44,7 @@ export const configureHID = () => {
   });
 
   window.webContents.session.setDevicePermissionHandler(details => {
-    // log.verbose("hid permissions", details);
+    // log.log("hid permissions", details);
     if (details.deviceType === "hid") {
       return true;
     }
