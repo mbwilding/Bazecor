@@ -1,5 +1,5 @@
+use crate::helpers::with_focus;
 use crate::Storage;
-use anyhow::anyhow;
 use dygma_focus::prelude::*;
 use tauri::{Result, State};
 
@@ -21,23 +21,6 @@ pub(crate) fn connect(port: &str, storage: State<Storage>) -> Result<()> {
 #[tauri::command]
 pub(crate) fn disconnect(storage: State<Storage>) {
     *storage.focus.lock().unwrap() = None;
-}
-
-pub(crate) fn with_focus<T, F>(storage: State<Storage>, func: F) -> Result<T>
-where
-    F: FnOnce(&mut Focus) -> Result<T>,
-{
-    let mut focus_guard = storage.focus.lock().unwrap();
-    let focus = focus_guard
-        .as_mut()
-        .ok_or_else(|| anyhow!("Not connected"))?;
-    match func(focus) {
-        Ok(result) => Ok(result),
-        Err(err) => {
-            *focus_guard = None;
-            Err(err)
-        }
-    }
 }
 
 #[tauri::command]

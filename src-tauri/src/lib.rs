@@ -1,16 +1,12 @@
 mod commands;
 mod helpers;
 mod settings;
+mod storage;
 
 use crate::commands::*;
 use crate::helpers::*;
 use crate::settings::*;
-use dygma_focus::prelude::*;
-use std::sync::Mutex;
-
-struct Storage {
-    focus: Mutex<Option<Focus>>,
-}
+use crate::storage::*;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -22,9 +18,7 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_os::init())
-        .manage(Storage {
-            focus: Default::default(),
-        })
+        .manage(Storage::default())
         .setup(|app| {
             settings(app)?;
 
