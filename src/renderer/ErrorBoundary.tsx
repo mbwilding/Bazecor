@@ -57,7 +57,7 @@ class ErrorBoundary extends React.Component<Myprops, Mystate> {
     let isDark;
     store.get<string>("settings.darkMode").then((mode) => {
       isDark = mode === "dark";
-      if (mode === "system") {
+      if (mode === "auto") {
         isDark = true; // TODO: Set via system preference
       }
     });

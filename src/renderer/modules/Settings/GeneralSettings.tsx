@@ -131,7 +131,7 @@ const GeneralSettings = ({
   const layoutsModes = [
     {
       name: "System",
-      value: "system",
+      value: "auto",
       icon: <IconScreen />,
       index: 0,
     },

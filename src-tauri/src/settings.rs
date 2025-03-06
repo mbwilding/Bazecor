@@ -11,15 +11,15 @@ pub(crate) fn settings(app: &mut App) -> anyhow::Result<()> {
     // will reuse the same store
     //
     // Directory:
-    //   macOS: ~/Library/Application Support/com.bazecore.app/settings.json
-    //   windows: ~\AppData\Roaming\com.bazecor.app\settings.json
+    //   macOS: ~/Library/Application Support/com.dygmalab.bazecor/settings.json
+    //   windows: ~\AppData\Roaming\com.dygmalab.bazecor\settings.json
     let store = app.store("settings.json")?;
 
     let settings_defaults = HashMap::from([
         ("settings.backupFolder", json!("")),
         ("settings.backupFrequency", json!(0)),
         ("settings.language", json!("english")),
-        ("settings.darkMode", json!("system")),
+        ("settings.darkMode", json!("auto")), // NOTE: Formerly `system`
         ("settings.hideBluetoothExperimental", json!(false)),
         ("settings.showDefaults", json!(false)),
         ("settings.autoUpdate", json!(null)),

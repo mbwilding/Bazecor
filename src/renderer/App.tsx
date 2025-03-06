@@ -64,7 +64,7 @@ const store = Store.getStore();
 // store.set("settings.backupFolder", json!(""));
 // store.set("settings.backupFrequency", json!(0));
 // store.set("settings.language", json!("english"));
-// store.set("settings.darkMode", json!("dark")); // TODO: system
+// store.set("settings.darkMode", json!("auto"));
 // store.set("settings.hideBluetoothExperimental", json!(false));
 // store.set("settings.showDefaults", json!(false));
 // store.set("settings.autoUpdate", json!(null));
@@ -160,7 +160,7 @@ function App() {
     data.backupFolder = path.join(userPath, "Dygma", "Backups");
     data.backupFrequency = 30;
     data.language = getTranslator(await locale());
-    data.darkMode = "system";
+    data.darkMode = "auto";
     data.showDefaults = false;
     i18n.setLanguage(data.language);
     store.set("settings", data);
@@ -177,7 +177,7 @@ function App() {
       let isDark: boolean;
       const mode = await store.get<string>("settings.darkMode");
       isDark = mode === "dark";
-      if (mode === "system") {
+      if (mode === "auto") {
         isDark = true // TODO: await ipcRenderer.invoke("get-NativeTheme");
         if (isDark) {
           document.documentElement.classList.remove("light");
@@ -261,10 +261,10 @@ function App() {
   const toggleDarkMode = async (mode: string) => {
     document.documentElement.classList.remove("light");
     document.documentElement.classList.remove("dark");
-    document.documentElement.classList.remove("system");
+    document.documentElement.classList.remove("auto");
     log.log("Dark mode changed to: ", mode, "NativeTheme says: ", true); // TODO: ipcRenderer.invoke("get-NativeTheme"));
     let isDark = mode === "dark";
-    if (mode === "system") {
+    if (mode === "auto") {
       isDark = true // TODO: await ipcRenderer.invoke("get-NativeTheme");
       if (isDark) {
         document.documentElement.classList.remove("light");
@@ -380,7 +380,7 @@ function App() {
     const darkThemeListener = async (event: any, message: boolean) => {
       log.log("O.S. DarkTheme Settings changed to ", message, event);
       const dm = await store.get<string>("settings.darkMode");
-      if (dm === "system") {
+      if (dm === "auto") {
         toggleDarkMode(dm);
       }
       if (dm || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {

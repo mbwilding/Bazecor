@@ -625,7 +625,7 @@ const Preferences = (props: PreferencesProps) => {
 
       let darkMode = await store.get<string>("settings.darkMode");
       if (!darkMode) {
-        darkMode = "system";
+        darkMode = "auto";
       }
 
       // const verbose = store.get("settings.verbose") as boolean;

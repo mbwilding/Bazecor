@@ -22,7 +22,7 @@
 //       backupFolder: "",
 //       backupFrequency: 0,
 //       language: "english",
-//       darkMode: "system",
+//       darkMode: "auto",
 //       hideBluetoothExperimental: false,
 //       showDefaults: false,
 //       autoUpdate: undefined,

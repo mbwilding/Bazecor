@@ -1,4 +1,4 @@
-import { nativeTheme, NativeTheme } from "electron";
+import { invoke } from "@tauri-apps/api/core";
 import Store from "../managers/Store";
 import sendToRenderer from "../utils/sendToRenderer";
 
@@ -14,11 +14,13 @@ const setTheme = async () => {
   const store = Store.getStore();
   let darkMode = await store.get<string>("settings.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
-    darkMode = "system";
-    await store.set("settings.darkMode", "system");
+    darkMode = "auto";
+    await store.set("settings.darkMode", "auto");
   }
-  // Setting nativeTheme currently only seems to work at this point in the code
-  nativeTheme.themeSource = darkMode as NativeTheme["themeSource"];
+
+  await invoke("plugin:theme|set_theme", {
+    theme: darkMode
+  });
 };
 
 export { configureNativeTheme, setTheme, onThemeChange };
