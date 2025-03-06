@@ -277,7 +277,7 @@ function App() {
       document.documentElement.classList.add(mode);
     }
     setDarkMode(isDark);
-    store.set("settings.darkMode", mode);
+    await store.set("settings.darkMode", mode);
   };
 
   const toggleFlashing = async () => {
