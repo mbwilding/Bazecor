@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "bazecor",
+  "productName": "Bazecor",
   "version": "0.1.0",
-  "identifier": "com.bazecor.app",
+  "identifier": "com.dygmalab.bazecor",
   "build": {
     "beforeDevCommand": "yarn dev",
     "devUrl": "http://localhost:1420",
