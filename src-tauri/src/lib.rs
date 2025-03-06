@@ -1,8 +1,10 @@
 mod commands;
 mod helpers;
+mod settings;
 
 use crate::commands::*;
 use crate::helpers::*;
+use crate::settings::*;
 use dygma_focus::prelude::*;
 use std::sync::Mutex;
 
