@@ -1,7 +1,7 @@
 import { BrowserWindow, dialog, MessageBoxOptions } from "electron";
 import fs from "fs";
 import * as sudo from "sudo-prompt";
-import log from "electron-log/main";
+const log = console;
 
 const udevRulesToWrite = `\
 # Dygma Raise

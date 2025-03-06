@@ -1,6 +1,6 @@
 import { ipcMain, app, dialog, shell, nativeTheme, systemPreferences } from "electron";
 import { uIOhook } from "uiohook-napi";
-import log from "electron-log/main";
+const log = console;
 import { sendKeyUp, sendkeyDown } from "./configureCaptureKeys";
 import { listDrivesHandler } from "../utils/listDrivesHandler";
 import GlobalRecording from "../managers/GlobalRecording";

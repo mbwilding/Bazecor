@@ -1,4 +1,4 @@
-import log from "electron-log/main";
+const log = console;
 
 const setDevTools = async () => {
   if (process.env.NODE_ENV !== "production") {

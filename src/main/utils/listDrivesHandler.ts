@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
-import log from "electron-log/main";
+const log = console;
 import { Drive, list } from "drivelist";
 import { delay } from "./delay";
 

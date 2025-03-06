@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu } from "electron";
-import log from "electron-log/main";
+const log = console;
 import createWindow from "./createWindow";
 import { setTheme } from "./setup/theme";
 import setBackup from "./setup/setBackup";

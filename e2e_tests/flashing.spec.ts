@@ -1,6 +1,6 @@
 import { _electron as electron, ElectronApplication, test, Page, expect } from "@playwright/test";
 import { findLatestBuild, parseElectronApp } from "electron-playwright-helpers";
-import log from "electron-log/main";
+const log = console;
 
 // this test does not work yet because we need to do something in firmware to avoid having to hold ESC key
 test.describe("Testing Bazecor E2E", async () => {

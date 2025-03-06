@@ -17,7 +17,7 @@
 
 import { ipcMain } from "electron";
 import { getDeviceList, WebUSB } from "usb";
-import log from "electron-log/main";
+const log = console;
 import sendToRenderer from "../utils/sendToRenderer";
 
 const dygmaVendorIDs = [0x35ef, 0x1209];

@@ -2,7 +2,7 @@ import { app } from "electron";
 import fs from "fs";
 import path from "path";
 import moment from "moment";
-import log from "electron-log/main";
+const log = console;
 import Store from "../managers/Store";
 
 function deleteOldFiles(backupPath: string, period: number) {

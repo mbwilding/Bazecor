@@ -1,4 +1,4 @@
-import log from "electron-log/main";
+const log = console;
 import { updateElectronApp, UpdateSourceType } from "update-electron-app";
 import Store from "../managers/Store";
 import { platform } from "@tauri-apps/plugin-os";

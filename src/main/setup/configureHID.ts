@@ -1,4 +1,4 @@
-import log from "electron-log/main";
+const log = console;
 import Window from "../managers/Window";
 import sendToRenderer from "../utils/sendToRenderer";
 
