@@ -1,8 +1,10 @@
 use anyhow::anyhow;
 use dygma_focus::prelude::*;
-use log::info;
+use log::debug;
+use serde_json::json;
+use std::collections::HashMap;
 use std::sync::Mutex;
-use tauri::{Result, State};
+use tauri::{App, Result, State};
 use tauri_plugin_store::StoreExt;
 
 struct Storage {
@@ -139,55 +141,7 @@ pub fn run() {
         //         .build(),
         // )
         .setup(|app| {
-            // Create a new store or load the existing one
-            // this also put the store in the app's resource table
-            // so your following calls `store` calls (from both rust and js)
-            // will reuse the same store
-            //
-            // Directory:
-            //   macOS: ~/Library/Application Support/com.bazecore.app
-            let store = app.store("settings.json")?;
-
-            // Note that values must be serde_json::Value instances,
-            // otherwise, they will not be compatible with the JavaScript bindings.
-            // store.set("settings.backupFolder", json!(""));
-            // store.set("settings.backupFrequency", json!(0));
-            // store.set("settings.language", json!("english"));
-            // store.set("settings.darkMode", json!("system"));
-            // store.set("settings.hideBluetoothExperimental", json!(false));
-            // store.set("settings.showDefaults", json!(false));
-            // store.set("settings.autoUpdate", json!(null));
-            // store.set("settings.verbose", json!(false));
-            // store.set("settings.version", json!(null));
-
-            // Get a value from the store.
-            let settings_keys = vec![
-                "settings.backupFolder",
-                "settings.backupFrequency",
-                "settings.language",
-                "settings.darkMode",
-                "settings.hideBluetoothExperimental",
-                "settings.showDefaults",
-                "settings.autoUpdate",
-                "settings.verbose",
-                "settings.version",
-                // "neurons",
-            ];
-
-            info!("Begin settings dump");
-
-            for key in settings_keys {
-                let value = store
-                    .get(key)
-                    .expect(&format!("Failed to get value for key {}", key));
-                info!("{}: {}", key, value);
-            }
-
-            info!("End settings dump");
-
-            // Remove the store from the resource table
-            // store.close_resource();
-
+            settings(app)?;
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -206,4 +160,53 @@ pub fn run() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+fn settings(app: &mut App) -> anyhow::Result<()> {
+    // Create a new store or load the existing one
+    // this also put the store in the app's resource table
+    // so your following calls `store` calls (from both rust and js)
+    // will reuse the same store
+    //
+    // Directory:
+    //   macOS: ~/Library/Application Support/com.bazecore.app/settings.json
+    //   windows: ~\AppData\Roaming\com.bazecor.app\settings.json
+    let store = app.store("settings.json")?;
+
+    let settings_defaults = HashMap::from([
+        ("settings.backupFolder", json!("")),
+        ("settings.backupFrequency", json!(0)),
+        ("settings.language", json!("english")),
+        ("settings.darkMode", json!("system")),
+        ("settings.hideBluetoothExperimental", json!(false)),
+        ("settings.showDefaults", json!(false)),
+        ("settings.autoUpdate", json!(null)),
+        ("settings.verbose", json!(false)),
+        ("settings.version", json!(null)),
+    ]);
+
+    for (key, default_value) in &settings_defaults {
+        if !store.has(key) {
+            store.set(key.to_string(), default_value.clone());
+        }
+    }
+
+    let settings_keys: Vec<&str> = settings_defaults.keys().cloned().collect();
+
+    #[cfg(debug_assertions)]
+    {
+        debug!("Begin settings dump");
+        for key in settings_keys {
+            let value = store
+                .get(key)
+                .expect(&format!("Failed to get value for key {}", key));
+            debug!("{}: {}", key, value);
+        }
+        debug!("End settings dump");
+    }
+
+    // Remove the store from the resource table
+    // store.close_resource();
+
+    Ok(())
 }
