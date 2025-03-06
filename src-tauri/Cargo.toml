@@ -1,5 +1,5 @@
 [package]
-name = "bazecor"
+name = "Bazecor"
 version.workspace = true
 description.workspace = true
 authors.workspace = true
