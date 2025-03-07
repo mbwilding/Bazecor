@@ -16,14 +16,14 @@ pub(crate) fn find_all_devices() -> Result<Vec<Device>> {
 
 #[tauri::command]
 pub(crate) fn connect(port: &str, storage: State<Storage>) -> Result<()> {
-    *storage.focus.lock().unwrap() =
+    *storage.focus.lock().expect("Failed to lock Focus mutex") =
         Some(Focus::new_via_port(port).context("Failed to create Focus via port")?);
     Ok(())
 }
 
 #[tauri::command]
 pub(crate) fn disconnect(storage: State<Storage>) {
-    *storage.focus.lock().unwrap() = None;
+    *storage.focus.lock().expect("Failed to lock Focus mutex") = None;
 }
 
 #[tauri::command]
