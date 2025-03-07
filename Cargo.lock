@@ -1190,25 +1190,24 @@ checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
 
 [[package]]
 name = "dygma_focus"
-version = "0.4.19"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "287950e56b3e72e7421dd88faaf9f03831ce9734c5bf8d910d6529d872ef41ca"
+checksum = "cdaf520065455c160ca81eaef551789f478c0efb49d8633478e670f413e12ada"
 dependencies = [
- "anyhow",
  "dygma_focus_proc_macros",
  "lazy_static",
- "maybe-async",
+ "log",
  "serde",
  "serialport",
- "tracing",
+ "thiserror 2.0.12",
  "windows 0.60.0",
 ]
 
 [[package]]
 name = "dygma_focus_proc_macros"
-version = "0.4.19"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53dc92bb9aa6dbc8f118b71501e93983910afbbdc3795b26d535f39863b6f5d4"
+checksum = "be824b67a75aa832a89709a5f35e5cd0c4d543ade40a8613e488d9d76e29eabd"
 dependencies = [
  "quote",
  "syn 2.0.99",
@@ -2707,17 +2706,6 @@ name = "matchit"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0e7465ac9959cc2b1404e8e2367b43684a6d13790fe23056cc8c6c5a6b7bcb94"
-
-[[package]]
-name = "maybe-async"
-version = "0.2.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5cf92c10c7e361d6b99666ec1c6f9805b0bea2c3bd8c78dc6fe98ac5bd78db11"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.99",
-]
 
 [[package]]
 name = "memchr"

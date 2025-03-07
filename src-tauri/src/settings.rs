@@ -41,7 +41,7 @@ pub(crate) fn settings(app: &mut App) -> anyhow::Result<()> {
         for key in settings_keys {
             let value = store
                 .get(key)
-                .expect(&format!("Failed to get value for key {}", key));
+                .unwrap_or_else(|| panic!("Failed to get value for key {}", key));
             debug!("{}: {}", key, value);
         }
         debug!("End settings dump");

@@ -19,10 +19,9 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 anyhow = "1.0"
-dygma_focus = { version = "0.4", default-features = false, features = [
-    "is_sync",
-    "serde",
-    "serde_camel_case",
+dygma_focus = { version = "0.5", default-features = false, features = [
+  "serde",
+  "serde_camel_case",
 ] }
 log = "0.4"
 serde = { version = "1", features = ["derive"] }
