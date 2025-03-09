@@ -15,7 +15,11 @@ name = "bazecor_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
+anyhow = "1"
+quote = "1"
+syn = { version = "2", features = ["full"] }
 tauri-build = { version = "2", features = [] }
+walkdir = "2.5.0"
 
 [dependencies]
 anyhow = "1.0"
