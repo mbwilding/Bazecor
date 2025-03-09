@@ -5,7 +5,7 @@ use syn::{File, FnArg, Item, ItemFn, Pat, PatType, Type, TypePath};
 use walkdir::WalkDir;
 
 const RS_COMMAND_PATH: &str = "./src/commands/";
-const TS_CODE_PATH: &str = "../src/rust/";
+const TS_CODE_PATH: &str = "../src/tauri/";
 
 fn main() -> Result<()> {
     // Run the Tauri build process

@@ -11,6 +11,7 @@ export default defineConfig({
       { find: "@Renderer", replacement: resolve(__dirname, "./src/renderer") },
       { find: "@Assets", replacement: resolve(__dirname, "./src/static") },
       { find: "@Types", replacement: resolve(__dirname, "./src/renderer/types") },
+      { find: "@Tauri", replacement: resolve(__dirname, "./src/tauri") },
     ]
   },
   test: {
