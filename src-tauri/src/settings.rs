@@ -33,15 +33,13 @@ pub(crate) fn settings(app: &mut App) -> anyhow::Result<()> {
         }
     }
 
-    let settings_keys: Vec<&str> = settings_defaults.keys().cloned().collect();
-
     #[cfg(debug_assertions)]
     {
+        let settings_keys: Vec<&str> = settings_defaults.keys().cloned().collect();
+
         debug!("Begin settings dump");
         for key in settings_keys {
-            let value = store
-                .get(key)
-                .unwrap_or_else(|| panic!("Failed to get value for key {}", key));
+            let value = store.get(key).unwrap_or_default();
             debug!("{}: {}", key, value);
         }
         debug!("End settings dump");
