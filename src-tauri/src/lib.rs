@@ -1,10 +1,8 @@
 mod commands;
-mod helpers;
 mod settings;
 mod storage;
 
-use crate::commands::*;
-use crate::helpers::*;
+use crate::commands::focus::*;
 use crate::settings::*;
 use crate::storage::*;
 
@@ -13,7 +11,28 @@ pub fn run() {
     let mut ctx = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
 
-    builder = observability(builder);
+    #[cfg(debug_assertions)]
+    {
+        let devtools = tauri_plugin_devtools::init();
+        builder = builder.plugin(devtools);
+    }
+
+    #[cfg(not(debug_assertions))]
+    {
+        use tauri_plugin_log::fern::colors::ColoredLevelConfig;
+        use tauri_plugin_log::{Builder, Target, TargetKind};
+
+        let log_plugin = Builder::default()
+            .targets([
+                Target::new(TargetKind::Stdout),
+                Target::new(TargetKind::LogDir { file_name: None }),
+                Target::new(TargetKind::Webview),
+            ])
+            .with_colors(ColoredLevelConfig::default())
+            .build();
+
+        builder = builder.plugin(log_plugin);
+    }
 
     builder
         .plugin(tauri_plugin_opener::init())

@@ -1,8 +1,26 @@
-use crate::helpers::with_focus;
 use crate::Storage;
+use anyhow::anyhow;
 use anyhow::Context;
 use dygma_focus::prelude::*;
+use dygma_focus::{errors::FocusError, Focus};
 use tauri::{Result, State};
+
+fn with_focus<T, F>(storage: State<Storage>, func: F) -> Result<T>
+where
+    F: FnOnce(&mut Focus) -> std::result::Result<T, FocusError>,
+{
+    let mut focus_guard = storage.focus.lock().expect("Failed to lock Focus mutex");
+    let focus = focus_guard
+        .as_mut()
+        .ok_or_else(|| anyhow::anyhow!("Not connected"))?;
+    match func(focus) {
+        Ok(result) => Ok(result),
+        Err(err) => {
+            *focus_guard = None;
+            Err(anyhow!(err).into())
+        }
+    }
+}
 
 #[tauri::command]
 pub(crate) fn find_all_devices() -> Result<Vec<Device>> {
