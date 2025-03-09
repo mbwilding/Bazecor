@@ -19,6 +19,7 @@ dependencies = [
  "tauri-plugin-os",
  "tauri-plugin-store",
  "tauri-plugin-theme",
+ "thiserror 2.0.12",
 ]
 
 [[package]]
