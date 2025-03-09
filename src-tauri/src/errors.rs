@@ -3,6 +3,6 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum BazecorError {
-    #[error("not connected")]
+    #[error("Not connected")]
     NotConnectedError,
 }
