@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 // TODO: changed from interface to class to fix error
 export class PageHeaderType {
@@ -6,7 +6,7 @@ export class PageHeaderType {
   text: string;
   styles?: string;
   contentSelector?: ReactNode | undefined;
-  colorEditor?: ReactNode | undefined;
+  colorEditor?: ReactElement | undefined;
   isColorActive?: boolean;
   showSaving?: boolean;
   saveContext?: () => Promise<void> | void;
