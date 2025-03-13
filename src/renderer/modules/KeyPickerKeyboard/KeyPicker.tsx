@@ -44,6 +44,8 @@ import OSKey from "@Renderer/components/molecules/KeyTags/OSKey";
 import { getKeyboardLayout } from "@Renderer/utils/getKeyboardLayout";
 import { SegmentedKeyType } from "@Renderer/types/layout";
 
+import { platform } from "@tauri-apps/plugin-os";
+
 const Style = Styled.div`
 width: 100%;
 @media screen and (min-width: 1980px) and (min-height: 980px) {
@@ -287,7 +289,7 @@ const KeyPicker = (props: Props) => {
   const Lang = getLanguage(selectedlanguage as LangOptions);
   const keyboardLayout = getKeyboardLayout(selectedlanguage);
 
-  const os = process.platform;
+  const os = platform();
   type IconListType = {
     [index: string]: JSX.Element;
   };
@@ -301,9 +303,9 @@ const KeyPicker = (props: Props) => {
     App: <FiMenu />,
     Win: (
       <>
-        {os === "win32" ? <AiFillWindows className="biggerWin" /> : ""}
-        {os === "darwin" ? <OSKey renderKey="os" /> : ""}
-        {os !== "win32" && os !== "darwin" ? <FaLinux className="biggerLinux" /> : ""}
+        {os === "windows" ? <AiFillWindows className="biggerWin" /> : ""}
+        {os === "macos" ? <OSKey renderKey="os" /> : ""}
+        {os !== "windows" && os !== "macos" ? <FaLinux className="biggerLinux" /> : ""}
       </>
     ),
     ArrUp: <AiOutlineArrowUp className="bigger" />,
@@ -428,7 +430,7 @@ const KeyPicker = (props: Props) => {
       disabled={key.mod === disableMods || disableAll}
       idArray={key.idArray}
       keyCode={code}
-      platform={process.platform}
+      platform={os}
     />
   ));
 
@@ -445,7 +447,7 @@ const KeyPicker = (props: Props) => {
               ""
             )}
             <svg
-              className={`svgStyle ${process.platform} ${keyboardLayout}`}
+              className={`svgStyle ${os} ${keyboardLayout}`}
               viewBox="0 0 1070 208"
               preserveAspectRatio="xMidYMin slice"
             >

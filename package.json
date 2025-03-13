@@ -29,7 +29,11 @@
     "tc": "vitest --coverage",
     "test": "vitest",
     "test:type": "tsc && tsc -p tsconfig.strict.json",
-    "e2e": "yarn playwright test"
+    "e2e": "yarn playwright test",
+    "tauri": "tauri",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "dygma",
